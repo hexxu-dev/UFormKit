@@ -1,0 +1,6 @@
+﻿{
+  "javascript": [
+    "~/App_Plugins/UFormKit/backoffice/form/form.controller.js",
+    "~/App_Plugins/UFormKit/backoffice/form/tagForm.controller.js"
+  ]
+}

@@ -1,0 +1,65 @@
+﻿<div ng-controller="tagFomController as vm">
+    <form action="" class="block-form" data-id="text">
+        <div class="umb-property" label="Name" label-for="name">
+            <div class="umb-control-group">
+                <div class="umb-el-wrap">
+                    <label class="control-label" for="name"> <span>Name</span> </label>
+                    <div class="controls">
+                        <input type="text" ng-model="vm.formTag.name" id="name" class="input-block-level" ng-blur="vm.populateValue()">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="umb-property" label="Condition" label-for="condition">
+            <div class="umb-control-group">
+                <div class="umb-el-wrap">
+                    <label class="control-label" for="condition"> <span>Condition</span> </label>
+                    <div class="controls">
+                        <input type="text" ng-model="vm.formTag.condition" id="condition" class="input-block-level" ng-blur="vm.populateValue()">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="umb-property" label="Options" label-for="optional">
+            <div class="umb-control-group">
+                <div class="umb-el-wrap">
+                    <label class="control-label" for="optional"> <span>Options</span> </label>
+                    <div class="controls">
+                        <label><input type="checkbox" ng-model="vm.formTag.optional" class="option" ng-change="vm.populateValue()"> Make this checkbox optional</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="umb-property" label="Id attribute" label-for="tag-id">
+            <div class="umb-control-group">
+                <div class="umb-el-wrap">
+                    <label class="control-label" for="tag-id"> <span>Id attribute</span> </label>
+                    <div class="controls">
+                        <input type="text" ng-model="vm.formTag.id" id="tag-id" class="input-block-level" ng-blur="vm.populateValue()">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="umb-property" label="Class attribute" label-for="class">
+            <div class="umb-control-group">
+                <div class="umb-el-wrap">
+                    <label class="control-label" for="class"> <span>Class attribute</span> </label>
+                    <div class="controls">
+                        <input type="text" ng-model="vm.formTag.class" id="class" class="input-block-level" ng-blur="vm.populateValue()">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br class="clear">
+        <div class="umb-property">
+            <div class="umb-control-group">
+                <div class="umb-el-wrap">
+                    <div class="controls">
+                        <input type="text" readonly class="input-block-level" ng-model="vm.formTag.value">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>

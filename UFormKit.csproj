@@ -1,0 +1,50 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
+    <ContentTargetFolders>.</ContentTargetFolders>
+    <PackageId>UFormKit</PackageId>
+    <Title>UFormKit</Title>
+    <Description>UForm Kit is a package for Umbraco which enables you to create and manage multiple contact forms on your site</Description>
+    <Product>...</Product>
+    <PackageTags>umbraco plugin package umbraco-marketplace</PackageTags>
+    <RootNamespace>UFormKit</RootNamespace>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Version>1.0.0</Version>
+    <Authors>Hexxu Services ltd</Authors>
+    <PackageProjectUrl></PackageProjectUrl>
+    <Copyright>Copyright (c) Hexxu Services ltd 2023</Copyright>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Umbraco.Cms.Web.Website" Version="10.0.0" Condition="'$(TargetFramework)' == 'net6.0'" />
+    <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="10.0.0" Condition="'$(TargetFramework)' == 'net6.0'" />
+    <PackageReference Include="Umbraco.Cms.Web.Website" Version="11.2.0" Condition="'$(TargetFramework)' == 'net7.0'" />
+    <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="11.2.0" Condition="'$(TargetFramework)' == 'net7.0'" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="App_Plugins\UFormKit\**" ExcludeFromSingleFile="true" CopyToPublishDirectory="Always" />
+    <None Include="buildTransitive\**" Pack="true" PackagePath="buildTransitive" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="img\icon.png" Pack="true" PackagePath="\" />
+    <None Include="docs\readme.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Migrations\package.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\package.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="App_Plugins\" />
+    <Folder Include="img\" />
+    <Folder Include="docs\" />
+  </ItemGroup>
+</Project>

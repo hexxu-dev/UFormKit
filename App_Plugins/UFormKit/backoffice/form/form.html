@@ -1,0 +1,21 @@
+﻿<div ng-controller="Umbraco.PropertyEditors.formController">
+
+    <div class="umb-tags-editor" style="border:none">
+        <span ng-repeat="tag in tags" class="label label-primary tag ng-scope" style="margin:5px" ng-click="openForm(tag)">{{tag.name}}</span>
+    </div>
+    
+    <ng-form name="textareaFieldForm">
+
+        <textarea ng-model="model.value"
+                  id="{{model.alias}}"
+                  name="textarea"
+                  rows="20"
+                  class="umb-property-editor umb-textarea textstring"
+                  val-server="value"
+                  ng-keyup="change()"
+                  ng-trim="false"
+                  ng-required="model.validation.mandatory"
+                  aria-required="{{model.validation.mandatory}}">
+        </textarea>
+    </ng-form>
+</div>

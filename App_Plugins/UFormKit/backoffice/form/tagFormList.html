@@ -1,0 +1,91 @@
+﻿<div ng-controller="tagFomController as vm">
+    <form action="" class="block-form" data-id="text">
+        <div class="umb-property" label="Field type" label-for="required" ng-show="vm.formTag.type != 'radio'">
+            <div class="umb-control-group">
+                <div class="umb-el-wrap">
+                    <label class="control-label" for="required"> <span>Field type</span> </label>
+                    <div class="controls">
+                        <label class="input-block-level"><input type="checkbox" ng-model="vm.formTag.required" id="required" ng-change="vm.populateValue()">Required field</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="umb-property" label="Name" label-for="name">
+            <div class="umb-control-group">
+                <div class="umb-el-wrap">
+                    <label class="control-label" for="name"> <span>Name</span> </label>
+                    <div class="controls">
+                        <input type="text" ng-model="vm.formTag.name" id="name" class="input-block-level" ng-blur="vm.populateValue()">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="umb-property" label="Query" label-for="query">
+            <div class="umb-control-group">
+                <div class="umb-el-wrap">
+                    <label class="control-label" for="name"> <span>Sql query</span> </label>
+                    <div class="controls">
+                        <input type="text" ng-model="vm.formTag.query" id="name" class="input-block-level" ng-blur="vm.populateValue()">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="umb-property" label="Options" label-for="options">
+            <div class="umb-control-group">
+                <div class="umb-el-wrap">
+                    <label class="control-label" for="name"> <span>Options</span> </label>
+                    <div class="controls">
+                        <textarea rows="5" ng-model="vm.formTag.options" id="options" class="input-block-level" ng-blur="vm.populateValue()"></textarea>
+                        <label><span class="description">One option per line.</span></label>
+                    </div>
+                    <div class="controls" ng-show="vm.formTag.type == 'select'">
+                        <label class="input-block-level"><input type="checkbox" ng-model="vm.formTag.multiple" id="required" ng-change="vm.populateValue()">Allow multiple selections</label>
+                        <label class="input-block-level"><input type="checkbox" ng-model="vm.formTag.includeBlank" id="required" ng-change="vm.populateValue()">Insert a blank item as the first option</label>
+                    </div>
+                    <div class="controls" ng-show="vm.formTag.type == 'checkbox'">
+                        <label class="input-block-level"><input type="checkbox" ng-model="vm.formTag.labelFirst" id="required" ng-change="vm.populateValue()">Put a label first, a checkbox last</label>
+                        <label class="input-block-level"><input type="checkbox" ng-model="vm.formTag.useLabelElement" id="required" ng-change="vm.populateValue()">Wrap each item with label element</label>
+                        <label class="input-block-level"><input type="checkbox" ng-model="vm.formTag.exclusive" id="required" ng-change="vm.populateValue()">Make checkboxes exclusive</label>
+                    </div>
+                    <div class="controls" ng-show="vm.formTag.type == 'radio'">
+                        <label class="input-block-level"><input type="checkbox" ng-model="vm.formTag.labelFirst" id="required" ng-change="vm.populateValue()">Put a label first, a checkbox last</label>
+                        <label class="input-block-level"><input type="checkbox" ng-model="vm.formTag.useLabelElement" id="required" ng-change="vm.populateValue()">Wrap each item with label element</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="umb-property" label="Id attribute" label-for="tag-id">
+            <div class="umb-control-group">
+                <div class="umb-el-wrap">
+                    <label class="control-label" for="tag-id"> <span>Id attribute</span> </label>
+                    <div class="controls">
+                        <input type="text" ng-model="vm.formTag.id" id="tag-id" class="input-block-level" ng-blur="vm.populateValue()">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="umb-property" label="Class attribute" label-for="class">
+            <div class="umb-control-group">
+                <div class="umb-el-wrap">
+                    <label class="control-label" for="class"> <span>Class attribute</span> </label>
+                    <div class="controls">
+                        <input type="text" ng-model="vm.formTag.class" id="class" class="input-block-level" ng-blur="vm.populateValue()">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br class="clear">
+        <div class="umb-property">
+            <div class="umb-control-group">
+                <div class="umb-el-wrap">
+                    <div class="controls">
+                        <input type="text" readonly class="input-block-level" ng-model="vm.formTag.value">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p class="description mail-tag"><label for="tag-generator-panel-text-mailtag">To use the value input through this field in a mail field, you need to insert the corresponding mail-tag (<strong><span class="mail-tag">[{{vm.formTag.name}}]</span></strong>) into the field on the Mail tab.</label></p>
+
+    </form>
+</div>
