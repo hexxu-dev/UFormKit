@@ -17,6 +17,15 @@
     <PackageReadmeFile>readme.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/hexxu-dev/UFormKit</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
+    <PackageReleaseNotes>v.1.0.1
+- Max &amp; min length options and character count
+- Demo mode  
+- Redirecting to another URL after submissions
+- Special mail-tags
+- Form autocompletion
+
+v.1.0.0
+- Initial release.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

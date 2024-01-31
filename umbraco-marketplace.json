@@ -1,38 +1,38 @@
+{
+  "$schema": "https://marketplace.umbraco.com/umbraco-marketplace-schema.json",
+  "AddOnPackagesRequiredForUmbracoCloud": [],
+  "AlternateCategory": "Editor Tools",
+  "AuthorDetails": {
+    "Name": "Hexxu Services Ltd",
+    "Description": "Software development company specializing in CMS digital products, plugins and themes",
+    "Url": "https://github.com/hexxu-dev/UFormKit",
+    "ImageUrl": "https://www.hexxu.dev/uformkit/icons/uformkit.png",
+    "Contributors": [
+    ],
+    "SyncContributorsFromRepository": true
+  },
+  "Category": "Developer Tools",
+  "Description": "UForm Kit is a package for Umbraco which enables you to create and manage multiple contact forms on your site, and customize the form and the mail contents flexibly with simple markup.",
+  "DocumentationUrl": "https://hexxu-services-ltd.gitbook.io/uform-kit-documentation/",
+  "LicenseTypes": [ "Free" ],
+  "IsSubPackageOf": "",
+  "PackageType": "Package",
+  "PackagesByAuthor": [],
+  "RelatedPackages": [
     {
-      "$schema": "https://marketplace.umbraco.com/umbraco-marketplace-schema.json",
-      "AddOnPackagesRequiredForUmbracoCloud": [],
-      "AlternateCategory": "Editor Tools",
-      "AuthorDetails": {
-        "Name": "Hexxu Services Ltd",
-        "Description": "Software development company specializing in CMS digital products, plugins and themes",
-        "Url": "https://github.com/hexxu-dev/UFormKit",
-        "ImageUrl": "https://www.hexxu.dev/uformkit/icons/uformkit.png",
-        "Contributors": [
-        ],
-        "SyncContributorsFromRepository": true
-      },
-      "Category": "Developer Tools",
-      "Description": "UForm Kit is a package for Umbraco which enables you to create and manage multiple contact forms on your site, and customize the form and the mail contents flexibly with simple markup.",
-      "DocumentationUrl": "https://hexxu-services-ltd.gitbook.io/uform-kit-documentation/",
-      "LicenseTypes": [ "Free" ],
-      "IsSubPackageOf": "",
-      "PackageType": "Package",
-      "PackagesByAuthor": [],
-      "RelatedPackages": [
-        {
-          "GroupTitle": "",
-          "PackageId": "",
-          "Description": ""
-        }
-      ],
-      
-      "Tags": ["frontend", "forms", "form generation", "developer", "editor", "custom editing"],
-      "Title": "Database Extension Kit",
-      "VersionSpecificPackageIds": [
-        {
-          "UmbracoMajorVersion": 8,
-          "PackageId": ""
-        }
-      ],
-      "VideoUrl": ""
+      "GroupTitle": "",
+      "PackageId": "",
+      "Description": ""
     }
+  ],
+
+  "Tags": [ "frontend", "forms", "form generation", "developer", "editor", "custom editing" ],
+  "Title": "UForm Kit",
+  "VersionSpecificPackageIds": [
+    {
+      "UmbracoMajorVersion": 8,
+      "PackageId": ""
+    }
+  ],
+  "VideoUrl": ""
+}
