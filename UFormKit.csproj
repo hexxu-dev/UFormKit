@@ -9,9 +9,9 @@
     <PackageTags>umbraco plugin package umbraco-marketplace</PackageTags>
     <RootNamespace>UFormKit</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
     <Authors>Hexxu Services ltd</Authors>
-    <PackageProjectUrl></PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/hexxu-dev/UFormKit</PackageProjectUrl>
     <Copyright>Copyright (c) Hexxu Services ltd 2023</Copyright>
     <PackageIcon>icon.png</PackageIcon>
     <PackageReadmeFile>readme.md</PackageReadmeFile>

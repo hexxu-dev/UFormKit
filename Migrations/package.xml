@@ -11,7 +11,7 @@
         <Name>UForm</Name>
         <Alias>uFormHexxu</Alias>
         <Key>8d717689-ac7f-494d-87b9-e52351549c06</Key>
-        <Icon>icon-item-arrangement</Icon>
+        <Icon>icon-autofill color-black</Icon>
         <Thumbnail>folder.png</Thumbnail>
         <Description />
         <AllowAtRoot>False</AllowAtRoot>
@@ -396,6 +396,30 @@
           <LabelOnTop>True</LabelOnTop>
           <Variations>Nothing</Variations>
         </GenericProperty>
+        <GenericProperty>
+          <Name>Demo mode</Name>
+          <Alias>demoMode</Alias>
+          <Key>d45eb3b2-d114-4c32-a9be-0b051ccdf368</Key>
+          <Type>Umbraco.TrueFalse</Type>
+          <Definition>92897bc6-a5f3-4ffe-ae27-f2e7e33dda49</Definition>
+          <Tab Alias="additionalSettings">Additional settings</Tab>
+          <SortOrder>0</SortOrder>
+          <Mandatory>False</Mandatory>
+          <LabelOnTop>False</LabelOnTop>
+          <Variations>Nothing</Variations>
+        </GenericProperty>
+        <GenericProperty>
+          <Name>Redirect to page</Name>
+          <Alias>redirectToPage</Alias>
+          <Key>88c9bd7f-549f-4b6f-8853-a2df9597c3a9</Key>
+          <Type>Umbraco.ContentPicker</Type>
+          <Definition>65e56692-d00a-4ba9-b368-1827f6e49bae</Definition>
+          <Tab Alias="additionalSettings">Additional settings</Tab>
+          <SortOrder>1</SortOrder>
+          <Mandatory>False</Mandatory>
+          <LabelOnTop>False</LabelOnTop>
+          <Variations>Nothing</Variations>
+        </GenericProperty>
       </GenericProperties>
       <Tabs>
         <Tab>
@@ -422,6 +446,14 @@
           <Alias>messages</Alias>
           <SortOrder>2</SortOrder>
         </Tab>
+        <Tab>
+          <Id>65</Id>
+          <Key>ecc73657-4d08-460a-a690-b7d5a1dd8e00</Key>
+          <Type>Tab</Type>
+          <Caption>Additional settings</Caption>
+          <Alias>additionalSettings</Alias>
+          <SortOrder>3</SortOrder>
+        </Tab>
       </Tabs>
       <HistoryCleanupPolicy preventCleanup="false" />
     </DocumentType>
@@ -430,7 +462,7 @@
         <Name>UForm Kit</Name>
         <Alias>uFormKitHexxu</Alias>
         <Key>696254aa-7319-46c7-9c24-8aff340a357b</Key>
-        <Icon>icon-item-arrangement</Icon>
+        <Icon>icon-folder color-black</Icon>
         <Thumbnail>folder.png</Thumbnail>
         <Description />
         <AllowAtRoot>True</AllowAtRoot>
@@ -459,17 +491,19 @@
 @using UFormKit.Models
 @model UFormModel
 
-@if (@TempData["success"] != null)
-{
-    <span class="form_submit_message">@TempData["success"]</span>
-}
 
-@Html.ValidationSummary()
+<div class="u-form-kit">
+    @using (Html.BeginUmbracoForm<UFormController>("Send", null, new { @class = "myclass" }))
+    {
+        @if (@TempData["success"] != null)
+        {
+            <span class="u-form-kit-response-output">@TempData["success"]</span>
+        }
 
-@using (Html.BeginUmbracoForm<UFormController>("Send"))
-{
-    @Model.Template
-}
+        @Html.ValidationSummary()
+        @Model.Template
+    }
+</div>
 @if (Model.UseRecaptcha)
 {
     <script src="https://www.google.com/recaptcha/api.js?render=@Model.SiteKey"></script>

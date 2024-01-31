@@ -9,7 +9,7 @@ namespace UFormKit.Helpers
     {
         public static string tagRegex()
         {
-            var tagNames = new List<string> { "text", "email", "url", "tel", "number", "range", "date", "textarea", "select", "checkbox", "radio", "acceptance", "file", "submit","hidden" };
+            var tagNames = new List<string> { "text", "email", "url", "tel", "number", "range", "date", "textarea", "select", "checkbox", "radio", "acceptance", "file", "submit", "hidden", "count" };
 
             var tagRegexp = string.Join("|", tagNames.Select(tagName => $"{Regex.Escape(tagName)}|{Regex.Escape(tagName + "*")}"));
             return "(\\[?)"
@@ -58,7 +58,7 @@ namespace UFormKit.Helpers
             return atts;
         }
 
-        public static ScannedTag PopulateTag (Match matches)
+        public static ScannedTag PopulateTag(Match matches)
         {
             string tagType = matches.Groups[2].Value;
             string tagBasetype = tagType.Trim('*');

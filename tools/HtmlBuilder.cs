@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Text;
 using UFormKit.Models;
+using static Umbraco.Cms.Core.Diagnostics.MiniDump;
 
 namespace UFormKit.Helpers
 {
@@ -43,6 +44,20 @@ namespace UFormKit.Helpers
             }
         }
 
+        public static void AppendMinMaxLength(ScannedTag tag, StringBuilder builder, string messageMin, string messageMax)
+        {
+            var min = tag.GetMinLengthOption();
+            if (min != null)
+            {
+                builder.Append($" minlength=\"{min}\" data-val-minlength-min=\"{min}\" data-val-minlength=\"{messageMin}\" ");
+            }
+            var max = tag.GetMaxLengthOption();
+            if (max != null)
+            {
+                builder.Append($" maxlength=\"{max}\" data-val-maxlength-max=\"{max}\" data-val-maxlength=\"{messageMax}\" ");
+            }
+        }
+
         public static void AppendPlaceholder(ScannedTag tag, StringBuilder builder)
         {
             if (tag.HasOption("placeholder") && tag.Values.Any())
@@ -64,6 +79,24 @@ namespace UFormKit.Helpers
             if (maxValue != null)
             {
                 builder.Append($" max=\"{maxValue}\"");
+            }
+        }
+
+        public static void AppendAutocomplete(ScannedTag tag, StringBuilder builder)
+        {
+            var autocomplete = tag.GetOption("autocomplete", "[-0-9a-zA-Z]+", true);
+            if (autocomplete != null)
+            {
+                builder.Append($" autocomplete=\"{autocomplete}\" ");
+            }
+        }
+
+        public static void AppendStep(ScannedTag tag, StringBuilder builder)
+        {
+            var step = tag.GetOption("step", "int", true);
+            if (step != null)
+            {
+                builder.Append($" step=\"{step}\" ");
             }
         }
 

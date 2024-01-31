@@ -27,4 +27,4 @@ dotnet add package UFormKit
 In Visual Studio, you can use the NuGet Package Manager GUI from the Tools menu, by selecting Tools > NuGet Package Manager > Manage NuGet Packages for Solution.
 # Documentation and Related links
 * UForm Kit Getting Started Guide: [Getting Started](https://hexxu-services-ltd.gitbook.io/uform-kit-documentation/)
-* UForm Technical Documentation: [Technical Documentation](https://hexxu-services-ltd.gitbook.io/uform-kit-documentation/technical-documentation)
+* UForm Kit Technical Documentation: [Technical Documentation](https://hexxu-services-ltd.gitbook.io/uform-kit-documentation/technical-documentation)

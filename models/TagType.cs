@@ -16,6 +16,7 @@
         public const string Radio = "radio";
         public const string File = "file";
         public const string Acceptance = "acceptance";
-		public const string Hidden = "hidden";
-	}
+        public const string Hidden = "hidden";
+        public const string Count = "count";
+    }
 }

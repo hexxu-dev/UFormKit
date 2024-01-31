@@ -24,6 +24,7 @@ namespace UFormKit.Components
         private IConfiguration config;
         private ILogger<UFormViewComponent> logger;
         private IScopeProvider scopeProvider;
+        private List<ScannedTag> scannedTags = new List<ScannedTag>();
 
 
 
@@ -53,9 +54,18 @@ namespace UFormKit.Components
                 Regex regex = new Regex(TagScanner.tagRegex());
                 var tags = regex.Matches(template);
 
+                var tagsGroup = new Dictionary<string, ScannedTag>();
+
                 foreach (Match tag in tags)
                 {
-                    template = template.Replace(tag.Value, tagReplace(tag));
+                    var scannedTad = TagScanner.PopulateTag(tag);
+                    scannedTags.Add(scannedTad);
+                    tagsGroup.Add(tag.Value, scannedTad);
+                }
+
+                foreach (var item in tagsGroup.Keys)
+                {
+                    template = template.Replace(item, tagReplace(tagsGroup[item]));
                 }
                 builder.Append($"<input type=\"hidden\" name=\"formId\" value=\"{id}\"/>");
                 if (useRecaptcha)
@@ -74,15 +84,16 @@ namespace UFormKit.Components
 
         }
 
-        private string tagReplace(Match matches)
+        private string tagReplace(ScannedTag scannedTag)
         {
             var result = "";
 
-            if (matches.Groups[1].Value == "[" && matches.Groups[6].Value == "]")
+            var defaultValue = scannedTag.GetDefaultValue(Request.Query, Request.HasFormContentType ? Request.Form : null);
+
+            if (!string.IsNullOrEmpty(defaultValue))
             {
-                return matches.Groups[0].Value.Substring(1, matches.Groups[0].Value.Length - 2);
+                scannedTag.Values.Insert(0, defaultValue);
             }
-            var scannedTag = TagScanner.PopulateTag(matches);
 
             switch (scannedTag.BaseType)
             {
@@ -108,6 +119,11 @@ namespace UFormKit.Components
                 case TagType.Textarea:
                     {
                         result = textareaField(scannedTag);
+                        break;
+                    }
+                case TagType.Count:
+                    {
+                        result = countField(scannedTag);
                         break;
                     }
                 case TagType.Submit:
@@ -162,6 +178,8 @@ namespace UFormKit.Components
             HtmlBuilder.AppendClassAndId(tag, builder);
             HtmlBuilder.AppendPlaceholder(tag, builder);
             HtmlBuilder.AppendSize(tag, builder);
+            HtmlBuilder.AppendMinMaxLength(tag, builder, content.GetValue<string>("thereIsAFieldWithInputThatIsShorterThanTheMinimumAllowedLength"), content.GetValue<string>("thereIsAFieldWithInputThatIsLongerThanTheMaximumAllowedLength"));
+            HtmlBuilder.AppendAutocomplete(tag, builder);
             builder.Append("/>");
             HtmlBuilder.AppendValidationSpan(tag, builder);
             return builder.ToString();
@@ -174,6 +192,7 @@ namespace UFormKit.Components
             HtmlBuilder.AppendRequired(tag, builder, requiredMessage);
             HtmlBuilder.AppendClassAndId(tag, builder);
             HtmlBuilder.AppendPlaceholder(tag, builder);
+            HtmlBuilder.AppendAutocomplete(tag, builder);
 
             var minValue = tag.GetOption("min", "signed_num", true);
             var maxValue = tag.GetOption("max", "signed_num", true);
@@ -185,6 +204,7 @@ namespace UFormKit.Components
             }
 
             HtmlBuilder.AppendMinMax(tag, builder, minValue, maxValue);
+            HtmlBuilder.AppendStep(tag, builder);
 
             builder.Append("/>");
             HtmlBuilder.AppendValidationSpan(tag, builder);
@@ -202,6 +222,7 @@ namespace UFormKit.Components
             var minValue = tag.GetOption("min", "date", true);
             var maxValue = tag.GetOption("max", "date", true);
             HtmlBuilder.AppendMinMax(tag, builder, minValue, maxValue);
+            HtmlBuilder.AppendAutocomplete(tag, builder);
 
             builder.Append("/>");
             HtmlBuilder.AppendValidationSpan(tag, builder);
@@ -229,8 +250,18 @@ namespace UFormKit.Components
             HtmlBuilder.AppendRequired(tag, builder, requiredMessage);
             HtmlBuilder.AppendClassAndId(tag, builder);
             HtmlBuilder.AppendPlaceholder(tag, builder);
+            HtmlBuilder.AppendMinMaxLength(tag, builder, content.GetValue<string>("thereIsAFieldWithInputThatIsShorterThanTheMinimumAllowedLength"), content.GetValue<string>("thereIsAFieldWithInputThatIsLongerThanTheMaximumAllowedLength"));
+            HtmlBuilder.AppendAutocomplete(tag, builder);
+
+            var countField = scannedTags.FirstOrDefault(x => x.Type == TagType.Count && x.RawName == tag.RawName);
+            if (countField != null)
+            {
+                var isDown = countField.HasOption("down") ? "true" : "false";
+                builder.Append($" onkeyup=\"characterCount(this,{isDown})\"");
+            }
             builder.Append("></textarea>");
             HtmlBuilder.AppendValidationSpan(tag, builder);
+
             return builder.ToString();
         }
 
@@ -395,6 +426,25 @@ namespace UFormKit.Components
             builder.Append($"<input type=\"hidden\" name=\"{tag.RawName}\" value=\"{tag.Values.First()}\"");
             HtmlBuilder.AppendClassAndId(tag, builder);
             builder.Append("/>");
+            return builder.ToString();
+        }
+
+        private string countField(ScannedTag tag)
+        {
+            var builder = new StringBuilder();
+            var isDown = tag.HasOption("down");
+            var start = 0;
+
+            if (isDown)
+            {
+                var target = scannedTags.FirstOrDefault(x => x.Type != TagType.Count && x.RawName == tag.RawName);
+                if (target != null && target.GetMaxLengthOption != null)
+                {
+                    start = int.Parse(target.GetMaxLengthOption().ToString());
+                }
+            }
+
+            builder.Append($"<span data-target-name=\"{tag.RawName}\">{start}</span>");
             return builder.ToString();
         }
 

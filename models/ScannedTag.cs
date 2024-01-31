@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -104,7 +105,7 @@ namespace UFormKit.Models
             return defaultValue;
         }
 
-        public object GetMaxLengthOption(bool defaultValue = false)
+        public object GetMaxLengthOption()
         {
             string option = (string)GetOption("maxlength", "int", true);
 
@@ -121,10 +122,10 @@ namespace UFormKit.Models
             }
 
 
-            return defaultValue;
+            return null;
         }
 
-        public object GetMinLengthOption(bool defaultValue = false)
+        public object GetMinLengthOption()
         {
             string option = (string)GetOption("minlength", "int", true);
 
@@ -134,7 +135,7 @@ namespace UFormKit.Models
             }
 
 
-            return defaultValue;
+            return null;
         }
 
         public object GetColsOption(int defaultValue = 40)
@@ -270,6 +271,34 @@ namespace UFormKit.Models
             }
 
             return null;
+        }
+
+        public string GetDefaultValue(IQueryCollection query, IFormCollection form)
+        {
+            var defaultValue = "";
+            var values = (List<string>)GetOption("default");
+
+            if (values != null)
+            {
+                foreach (var item in values)
+                {
+                    if (item == "get")
+                    {
+                        defaultValue = query[Name];
+
+                        if (!string.IsNullOrEmpty(defaultValue))
+                            return defaultValue;
+                    }
+                    if (item == "post" && form != null)
+                    {
+                        defaultValue = form[Name];
+
+                        if (!string.IsNullOrEmpty(defaultValue))
+                            return defaultValue;
+                    }
+                }
+            }
+            return defaultValue;
         }
 
     }
