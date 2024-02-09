@@ -1,6 +1,7 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using System.Linq;
+using Umbraco.Cms.Core.Configuration.Models;
 using Umbraco.Cms.Core.Events;
 using Umbraco.Cms.Core.Models.ContentEditing;
 using Umbraco.Cms.Core.Notifications;
@@ -10,10 +11,10 @@ namespace UFormKit
 {
     public class UFormSendingContentNotificationHandler : INotificationHandler<SendingContentNotification>
     {
-        private IConfiguration config;
-        public UFormSendingContentNotificationHandler(IConfiguration config)
+        private GlobalSettings globalSettings;
+        public UFormSendingContentNotificationHandler(IOptions<GlobalSettings> globalSettings)
         {
-            this.config = config;
+            this.globalSettings = globalSettings.Value;
         }
         public void Handle(SendingContentNotification notification)
         {
@@ -47,11 +48,10 @@ namespace UFormKit
                         var defaultTemplate = "<div> Your name\r\n    [text* your-name] </div>\r\n\r\n<div> Your email\r\n    [email* your-email] </div>\r\n\r\n<div> Subject\r\n    [text* your-subject] </div>\r\n\r\n<div> Your message (optional)\r\n    [textarea your-message] </div>\r\n\r\n[submit \"Submit\"]";
                         setDefaultValue(properties, "form", defaultTemplate);
 
-                        var smtpConfig = config.GetSection("Umbraco").GetSection("CMS").GetSection("Global").GetSection("Smtp");
-                        var emailFrom = smtpConfig["From"];
-                        if (emailFrom != null)
+
+                        if (globalSettings.Smtp != null)
                         {
-                            setDefaultValue(properties, "from", emailFrom);
+                            setDefaultValue(properties, "from", globalSettings.Smtp.From);
                         }
                         setDefaultValue(properties, "subject", "[your-subject]");
                         setDefaultValue(properties, "replyTo", "[your-email]");

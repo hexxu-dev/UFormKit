@@ -1,26 +1,32 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Text.RegularExpressions;
 using Umbraco.Cms.Core.Cache;
+using Umbraco.Cms.Core.IO;
 using Umbraco.Cms.Core.Logging;
 using Umbraco.Cms.Core.Mail;
+using Umbraco.Cms.Core.Models;
 using Umbraco.Cms.Core.Models.Email;
+using Umbraco.Cms.Core.PropertyEditors;
 using Umbraco.Cms.Core.Routing;
 using Umbraco.Cms.Core.Services;
+using Umbraco.Cms.Core.Strings;
 using Umbraco.Cms.Core.Web;
 using Umbraco.Cms.Infrastructure.Persistence;
 using Umbraco.Cms.Web.Common.Attributes;
 using Umbraco.Cms.Web.Website.Controllers;
-using Umbraco.Extensions;
 using UFormKit.Helpers;
 using UFormKit.Models;
-using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Http.Extensions;
+using Umbraco.Cms.Web.Common.Mvc;
+using Umbraco.Cms.Web.Common;
 using System.Collections.Generic;
+using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using System.Linq;
 using System.IO;
+using Umbraco.Extensions;
 using System;
-using Microsoft.AspNetCore.Http.Extensions;
 
 namespace UFormKit.Controller
 {
@@ -78,6 +84,7 @@ namespace UFormKit.Controller
             var isHtml = content.GetValue<bool>("useHTMLContentType");
             var excludeBlankMailTags = content.GetValue<bool>("excludeLinesWithBlankMailTagsFromOutput");
             var demo = content.GetValue<bool>("demoMode");
+            var storeData = !content.GetValue<bool>("doNotStoreData");
             var redirectUrl = content.GetValue<Umbraco.Cms.Core.Udi>("redirectToPage");
 
             var fileList = new List<string>();
@@ -171,7 +178,7 @@ namespace UFormKit.Controller
                                         var fileExtension = Path.GetExtension(file.FileName).Replace(".", "");
                                         if (alowedTypes != null && !((string)alowedTypes).Contains(fileExtension))
                                         {
-                                            ModelState.AddModelError(file.Name, content.GetValue<string>("uploadedFileIsNotAllowedForFileType"));
+                                            ModelState.AddModelError("", content.GetValue<string>("uploadedFileIsNotAllowedForFileType"));
                                             return CurrentUmbracoPage();
                                         }
 
@@ -179,7 +186,7 @@ namespace UFormKit.Controller
 
                                         if (file.Length > fileLimit)
                                         {
-                                            ModelState.AddModelError(file.Name, content.GetValue<string>("uploadedFileIsTooLarge"));
+                                            ModelState.AddModelError("", content.GetValue<string>("uploadedFileIsTooLarge"));
                                             return CurrentUmbracoPage();
                                         }
 
@@ -214,6 +221,18 @@ namespace UFormKit.Controller
                     message = new EmailMessage(mailFrom, mailTo?.Split(","), cc?.Split(","), bcc?.Split(","), replyTo?.Split(","), subject, body, isHtml, attachments);
 
                     await emailSender.SendAsync(message, "");
+
+                    if (storeData)
+                    {
+                        try
+                        {
+                            insertSubmission(body, content.GetUdi().Guid);
+                        }
+                        catch (Exception ex)
+                        {
+                        }
+                    }
+
                 }
 
                 TempData["success"] = content.GetValue<string>("sendersMessageSuccess");
@@ -247,8 +266,17 @@ namespace UFormKit.Controller
                 .Replace("[_url]", Request.GetDisplayUrl());
         }
 
+        private void insertSubmission(string message, Guid parentGuid)
+        {
+            HtmlStringUtilities util = new HtmlStringUtilities();
+
+            var submission = ctService.Create(Guid.NewGuid().ToString(), parentGuid, "uFormSubmission");
+            submission.SetValue("message", util.ReplaceLineBreaks(message));
+            submission.SetValue("dateAndTimeOfAMessage", DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"));
+            ctService.SaveAndPublish(submission);
+        }
+
 
 
     }
 }
-

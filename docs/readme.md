@@ -25,6 +25,28 @@ dotnet add package UFormKit
 ```
 ## Visual Studio
 In Visual Studio, you can use the NuGet Package Manager GUI from the Tools menu, by selecting Tools > NuGet Package Manager > Manage NuGet Packages for Solution.
+# Telemetry statistics
+Since version 1.0.2, our UForm Kit package has been collecting telemetry data.
+This provides us with insights to which Umbraco and package versions being used, so that we can make informed decisions on how to focus our future development efforts. The data is sent anonymously, no personal or sensitive data is collected.
+## What type of data is being captured?
+An example of the data captured is as follows.
+```
+{
+    "umbraco_id": "0403E47E-EFE7-4CF2-8E97-148681DAFC10",
+    "umbraco_version": "13.0.0",
+    "package_id": "UForm Kit",
+    "package_version": "1.0.2"
+}
+```
+## How to disable telemetry?
+If you would prefer to opt-out and disable the telemetry feature, add this option in your appsettings.json file:
+```
+{
+  "UFormKit": {
+    "DisableTelemetry": true
+  }
+}
+```
 # Documentation and Related links
 * UForm Kit Getting Started Guide: [Getting Started](https://hexxu-services-ltd.gitbook.io/uform-kit-documentation/)
 * UForm Kit Technical Documentation: [Technical Documentation](https://hexxu-services-ltd.gitbook.io/uform-kit-documentation/technical-documentation)

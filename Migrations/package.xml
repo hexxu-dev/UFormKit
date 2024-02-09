@@ -15,14 +15,16 @@
         <Thumbnail>folder.png</Thumbnail>
         <Description />
         <AllowAtRoot>False</AllowAtRoot>
-        <IsListView>False</IsListView>
+        <IsListView>True</IsListView>
         <IsElement>False</IsElement>
         <Variations>Nothing</Variations>
         <Compositions />
         <AllowedTemplates />
         <DefaultTemplate></DefaultTemplate>
       </Info>
-      <Structure />
+      <Structure>
+        <DocumentType>uFormSubmission</DocumentType>
+      </Structure>
       <GenericProperties>
         <GenericProperty>
           <Name>Form</Name>
@@ -211,7 +213,7 @@
           <Type>Umbraco.TextBox</Type>
           <Definition>0cc0eba1-9960-42c9-bf9b-60e150b429ae</Definition>
           <Tab Alias="messages">Messages</Tab>
-          <SortOrder>4</SortOrder>
+          <SortOrder>3</SortOrder>
           <Mandatory>False</Mandatory>
           <LabelOnTop>True</LabelOnTop>
           <Variations>Nothing</Variations>
@@ -223,7 +225,7 @@
           <Type>Umbraco.TextBox</Type>
           <Definition>0cc0eba1-9960-42c9-bf9b-60e150b429ae</Definition>
           <Tab Alias="messages">Messages</Tab>
-          <SortOrder>5</SortOrder>
+          <SortOrder>4</SortOrder>
           <Mandatory>False</Mandatory>
           <LabelOnTop>True</LabelOnTop>
           <Variations>Nothing</Variations>
@@ -235,7 +237,7 @@
           <Type>Umbraco.TextBox</Type>
           <Definition>0cc0eba1-9960-42c9-bf9b-60e150b429ae</Definition>
           <Tab Alias="messages">Messages</Tab>
-          <SortOrder>6</SortOrder>
+          <SortOrder>5</SortOrder>
           <Mandatory>False</Mandatory>
           <LabelOnTop>True</LabelOnTop>
           <Variations>Nothing</Variations>
@@ -247,7 +249,7 @@
           <Type>Umbraco.TextBox</Type>
           <Definition>0cc0eba1-9960-42c9-bf9b-60e150b429ae</Definition>
           <Tab Alias="messages">Messages</Tab>
-          <SortOrder>7</SortOrder>
+          <SortOrder>6</SortOrder>
           <Mandatory>False</Mandatory>
           <LabelOnTop>True</LabelOnTop>
           <Variations>Nothing</Variations>
@@ -259,7 +261,7 @@
           <Type>Umbraco.TextBox</Type>
           <Definition>0cc0eba1-9960-42c9-bf9b-60e150b429ae</Definition>
           <Tab Alias="messages">Messages</Tab>
-          <SortOrder>8</SortOrder>
+          <SortOrder>7</SortOrder>
           <Mandatory>False</Mandatory>
           <LabelOnTop>True</LabelOnTop>
           <Variations>Nothing</Variations>
@@ -271,7 +273,7 @@
           <Type>Umbraco.TextBox</Type>
           <Definition>0cc0eba1-9960-42c9-bf9b-60e150b429ae</Definition>
           <Tab Alias="messages">Messages</Tab>
-          <SortOrder>9</SortOrder>
+          <SortOrder>8</SortOrder>
           <Mandatory>False</Mandatory>
           <LabelOnTop>True</LabelOnTop>
           <Variations>Nothing</Variations>
@@ -283,7 +285,7 @@
           <Type>Umbraco.TextBox</Type>
           <Definition>0cc0eba1-9960-42c9-bf9b-60e150b429ae</Definition>
           <Tab Alias="messages">Messages</Tab>
-          <SortOrder>10</SortOrder>
+          <SortOrder>9</SortOrder>
           <Mandatory>False</Mandatory>
           <LabelOnTop>True</LabelOnTop>
           <Variations>Nothing</Variations>
@@ -295,7 +297,7 @@
           <Type>Umbraco.TextBox</Type>
           <Definition>0cc0eba1-9960-42c9-bf9b-60e150b429ae</Definition>
           <Tab Alias="messages">Messages</Tab>
-          <SortOrder>11</SortOrder>
+          <SortOrder>10</SortOrder>
           <Mandatory>False</Mandatory>
           <LabelOnTop>True</LabelOnTop>
           <Variations>Nothing</Variations>
@@ -307,7 +309,7 @@
           <Type>Umbraco.TextBox</Type>
           <Definition>0cc0eba1-9960-42c9-bf9b-60e150b429ae</Definition>
           <Tab Alias="messages">Messages</Tab>
-          <SortOrder>12</SortOrder>
+          <SortOrder>11</SortOrder>
           <Mandatory>False</Mandatory>
           <LabelOnTop>True</LabelOnTop>
           <Variations>Nothing</Variations>
@@ -319,7 +321,7 @@
           <Type>Umbraco.TextBox</Type>
           <Definition>0cc0eba1-9960-42c9-bf9b-60e150b429ae</Definition>
           <Tab Alias="messages">Messages</Tab>
-          <SortOrder>13</SortOrder>
+          <SortOrder>12</SortOrder>
           <Mandatory>False</Mandatory>
           <LabelOnTop>True</LabelOnTop>
           <Variations>Nothing</Variations>
@@ -331,7 +333,7 @@
           <Type>Umbraco.TextBox</Type>
           <Definition>0cc0eba1-9960-42c9-bf9b-60e150b429ae</Definition>
           <Tab Alias="messages">Messages</Tab>
-          <SortOrder>14</SortOrder>
+          <SortOrder>13</SortOrder>
           <Mandatory>False</Mandatory>
           <LabelOnTop>True</LabelOnTop>
           <Variations>Nothing</Variations>
@@ -343,7 +345,7 @@
           <Type>Umbraco.TextBox</Type>
           <Definition>0cc0eba1-9960-42c9-bf9b-60e150b429ae</Definition>
           <Tab Alias="messages">Messages</Tab>
-          <SortOrder>15</SortOrder>
+          <SortOrder>14</SortOrder>
           <Mandatory>False</Mandatory>
           <LabelOnTop>True</LabelOnTop>
           <Variations>Nothing</Variations>
@@ -355,7 +357,7 @@
           <Type>Umbraco.TextBox</Type>
           <Definition>0cc0eba1-9960-42c9-bf9b-60e150b429ae</Definition>
           <Tab Alias="messages">Messages</Tab>
-          <SortOrder>16</SortOrder>
+          <SortOrder>15</SortOrder>
           <Mandatory>False</Mandatory>
           <LabelOnTop>True</LabelOnTop>
           <Variations>Nothing</Variations>
@@ -367,7 +369,7 @@
           <Type>Umbraco.TextBox</Type>
           <Definition>0cc0eba1-9960-42c9-bf9b-60e150b429ae</Definition>
           <Tab Alias="messages">Messages</Tab>
-          <SortOrder>17</SortOrder>
+          <SortOrder>16</SortOrder>
           <Mandatory>False</Mandatory>
           <LabelOnTop>True</LabelOnTop>
           <Variations>Nothing</Variations>
@@ -379,7 +381,7 @@
           <Type>Umbraco.TextBox</Type>
           <Definition>0cc0eba1-9960-42c9-bf9b-60e150b429ae</Definition>
           <Tab Alias="messages">Messages</Tab>
-          <SortOrder>18</SortOrder>
+          <SortOrder>17</SortOrder>
           <Mandatory>False</Mandatory>
           <LabelOnTop>True</LabelOnTop>
           <Variations>Nothing</Variations>
@@ -391,9 +393,21 @@
           <Type>Umbraco.TextBox</Type>
           <Definition>0cc0eba1-9960-42c9-bf9b-60e150b429ae</Definition>
           <Tab Alias="messages">Messages</Tab>
-          <SortOrder>19</SortOrder>
+          <SortOrder>18</SortOrder>
           <Mandatory>False</Mandatory>
           <LabelOnTop>True</LabelOnTop>
+          <Variations>Nothing</Variations>
+        </GenericProperty>
+        <GenericProperty>
+          <Name>Do not store data</Name>
+          <Alias>doNotStoreData</Alias>
+          <Key>3e59ed6a-f32e-4779-939a-8d7cc9413867</Key>
+          <Type>Umbraco.TrueFalse</Type>
+          <Definition>92897bc6-a5f3-4ffe-ae27-f2e7e33dda49</Definition>
+          <Tab Alias="additionalSettings">Additional settings</Tab>
+          <SortOrder>0</SortOrder>
+          <Mandatory>False</Mandatory>
+          <LabelOnTop>False</LabelOnTop>
           <Variations>Nothing</Variations>
         </GenericProperty>
         <GenericProperty>
@@ -403,7 +417,7 @@
           <Type>Umbraco.TrueFalse</Type>
           <Definition>92897bc6-a5f3-4ffe-ae27-f2e7e33dda49</Definition>
           <Tab Alias="additionalSettings">Additional settings</Tab>
-          <SortOrder>0</SortOrder>
+          <SortOrder>1</SortOrder>
           <Mandatory>False</Mandatory>
           <LabelOnTop>False</LabelOnTop>
           <Variations>Nothing</Variations>
@@ -415,7 +429,7 @@
           <Type>Umbraco.ContentPicker</Type>
           <Definition>65e56692-d00a-4ba9-b368-1827f6e49bae</Definition>
           <Tab Alias="additionalSettings">Additional settings</Tab>
-          <SortOrder>1</SortOrder>
+          <SortOrder>2</SortOrder>
           <Mandatory>False</Mandatory>
           <LabelOnTop>False</LabelOnTop>
           <Variations>Nothing</Variations>
@@ -480,6 +494,61 @@
       <Tabs />
       <HistoryCleanupPolicy preventCleanup="false" />
     </DocumentType>
+    <DocumentType>
+      <Info>
+        <Name>UForm Submission</Name>
+        <Alias>uFormSubmission</Alias>
+        <Key>15f1c721-2f2a-4530-8d6b-caebfd076cc1</Key>
+        <Icon>icon-categories color-black</Icon>
+        <Thumbnail>folder.png</Thumbnail>
+        <Description />
+        <AllowAtRoot>False</AllowAtRoot>
+        <IsListView>False</IsListView>
+        <IsElement>False</IsElement>
+        <Variations>Nothing</Variations>
+        <Compositions />
+        <AllowedTemplates />
+        <DefaultTemplate></DefaultTemplate>
+      </Info>
+      <Structure />
+      <GenericProperties>
+        <GenericProperty>
+          <Name>Message</Name>
+          <Alias>message</Alias>
+          <Key>eb5608cf-a660-4308-acbb-ccdc8083bd1a</Key>
+          <Type>Umbraco.Label</Type>
+          <Definition>f0bc4bfb-b499-40d6-ba86-058885a5178c</Definition>
+          <Tab Alias="content">Content</Tab>
+          <SortOrder>0</SortOrder>
+          <Mandatory>False</Mandatory>
+          <LabelOnTop>False</LabelOnTop>
+          <Variations>Nothing</Variations>
+        </GenericProperty>
+        <GenericProperty>
+          <Name>Sent At</Name>
+          <Alias>dateAndTimeOfAMessage</Alias>
+          <Key>8ae18210-ef3a-4307-af19-5c8e1e586480</Key>
+          <Type>Umbraco.Label</Type>
+          <Definition>0e9794eb-f9b5-4f20-a788-93acd233a7e4</Definition>
+          <Tab Alias="content">Content</Tab>
+          <SortOrder>1</SortOrder>
+          <Mandatory>False</Mandatory>
+          <LabelOnTop>False</LabelOnTop>
+          <Variations>Nothing</Variations>
+        </GenericProperty>
+      </GenericProperties>
+      <Tabs>
+        <Tab>
+          <Id>66</Id>
+          <Key>245afc30-b462-4c9e-a21f-b8d6a36b5fd2</Key>
+          <Type>Group</Type>
+          <Caption>Content</Caption>
+          <Alias>content</Alias>
+          <SortOrder>0</SortOrder>
+        </Tab>
+      </Tabs>
+      <HistoryCleanupPolicy preventCleanup="false" />
+    </DocumentType>
   </DocumentTypes>
   <MediaTypes />
   <Templates />
@@ -500,7 +569,7 @@
             <span class="u-form-kit-response-output">@TempData["success"]</span>
         }
 
-        @Html.ValidationSummary()
+        @Html.ValidationSummary(true)
         @Model.Template
     }
 </div>
@@ -556,6 +625,7 @@
   <DictionaryItems />
   <Languages />
   <DataTypes>
+    <DataType Name="List View - uFormHexxu" Id="Umbraco.ListView" Definition="b310ea5d-3903-4722-a4a6-663755eaae2e" DatabaseType="Nvarchar" Configuration="{&quot;pageSize&quot;:10,&quot;orderDirection&quot;:&quot;desc&quot;,&quot;includeProperties&quot;:[{&quot;alias&quot;:&quot;dateAndTimeOfAMessage&quot;,&quot;header&quot;:&quot;Sent At&quot;,&quot;isSystem&quot;:0},{&quot;alias&quot;:&quot;message&quot;,&quot;header&quot;:&quot;Message&quot;,&quot;isSystem&quot;:0}],&quot;orderBy&quot;:&quot;dateAndTimeOfAMessage&quot;,&quot;layouts&quot;:[{&quot;name&quot;:&quot;List&quot;,&quot;path&quot;:&quot;views/propertyeditors/listview/layouts/list/list.html&quot;,&quot;icon&quot;:&quot;icon-list&quot;,&quot;isSystem&quot;:1,&quot;selected&quot;:true},{&quot;name&quot;:&quot;Grid&quot;,&quot;path&quot;:&quot;views/propertyeditors/listview/layouts/grid/grid.html&quot;,&quot;icon&quot;:&quot;icon-thumbnails-small&quot;,&quot;isSystem&quot;:1,&quot;selected&quot;:true}],&quot;bulkActionPermissions&quot;:{&quot;allowBulkPublish&quot;:false,&quot;allowBulkUnpublish&quot;:false,&quot;allowBulkCopy&quot;:true,&quot;allowBulkMove&quot;:true,&quot;allowBulkDelete&quot;:true},&quot;icon&quot;:&quot;icon-list&quot;,&quot;tabName&quot;:&quot;Submissions&quot;,&quot;showContentFirst&quot;:false,&quot;useInfiniteEditor&quot;:false}" />
     <DataType Name="UForm  template" Id="UFormKitTemplate" Definition="ea2487ae-b03b-4519-a1e3-77145dacda8b" DatabaseType="Ntext" Configuration="{}" />
   </DataTypes>
   <MediaItems />

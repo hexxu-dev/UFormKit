@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using Microsoft.Extensions.Options;
 
 namespace UFormKit.Components
 {
@@ -20,20 +21,20 @@ namespace UFormKit.Components
     {
         private IContentService ctService;
         private IContent content;
+        private UFormSettings uformSettings;
         private string requiredMessage;
-        private IConfiguration config;
         private ILogger<UFormViewComponent> logger;
         private IScopeProvider scopeProvider;
         private List<ScannedTag> scannedTags = new List<ScannedTag>();
 
 
 
-        public UFormViewComponent(IContentService ctService, IConfiguration config, ILogger<UFormViewComponent> logger, IScopeProvider scopeProvider)
+        public UFormViewComponent(IContentService ctService, ILogger<UFormViewComponent> logger, IScopeProvider scopeProvider, IOptions<UFormSettings> uformSettings)
         {
             this.ctService = ctService;
-            this.config = config;
             this.logger = logger;
             this.scopeProvider = scopeProvider;
+            this.uformSettings = uformSettings.Value;
         }
 
         public IViewComponentResult Invoke(int id)
@@ -48,7 +49,7 @@ namespace UFormKit.Components
 
                 var template = content.GetValue<string>("form");
                 useRecaptcha = content.GetValue<bool>("useRecaptcha");
-                siteKey = useRecaptcha ? config.GetSection("UFormKit").GetSection("Recaptcha")["SiteKey"] : "";
+                siteKey = useRecaptcha && uformSettings.Recaptcha != null ? uformSettings.Recaptcha.SiteKey : "";
                 requiredMessage = content.GetValue<string>("thereIsAFieldThatTheSenderMustFillIn");
 
                 Regex regex = new Regex(TagScanner.tagRegex());

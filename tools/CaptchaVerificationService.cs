@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System;
@@ -11,12 +10,12 @@ namespace UFormKit.Helpers
 {
     public class CaptchaVerificationService
     {
-        private IConfiguration config;
         private ILogger<CaptchaVerificationService> logger;
+        private UFormSettings uformSettings;
 
-        public CaptchaVerificationService(IConfiguration config)
+        public CaptchaVerificationService(IOptions<UFormSettings> uformSettings)
         {
-            this.config = config;
+            this.uformSettings = uformSettings.Value;
         }
 
         public async Task<bool> IsCaptchaValid(string token)
@@ -28,15 +27,16 @@ namespace UFormKit.Helpers
             try
             {
                 using var client = new HttpClient();
+                if (uformSettings.Recaptcha != null)
+                {
+                    var secretKey = uformSettings.Recaptcha.SecretKey;
 
-                var recaptchaConfig = config.GetSection("UFormKit").GetSection("Recaptcha");
-                var secretKey = recaptchaConfig["SecretKey"];
+                    var response = await client.PostAsync($"{googleVerificationUrl}?secret={secretKey}&response={token}", null);
+                    var jsonString = await response.Content.ReadAsStringAsync();
+                    var captchaVerfication = JsonConvert.DeserializeObject<CaptchaVerificationResponse>(jsonString);
 
-                var response = await client.PostAsync($"{googleVerificationUrl}?secret={secretKey}&response={token}", null);
-                var jsonString = await response.Content.ReadAsStringAsync();
-                var captchaVerfication = JsonConvert.DeserializeObject<CaptchaVerificationResponse>(jsonString);
-
-                result = captchaVerfication.Success;
+                    result = captchaVerfication.Success;
+                }
             }
             catch (Exception e)
             {
