@@ -19,14 +19,14 @@ using Umbraco.Cms.Core.Semver;
 using Umbraco.Extensions;
 using static Lucene.Net.Search.FieldValueHitQueue;
 
-namespace UFormKit
+namespace UFormKit.notifications
 {
     public class UFormContentSavedNotificationHandler : INotificationAsyncHandler<ContentSavedNotification>
     {
-        private  GlobalSettings globalSettings;
-        private  IUmbracoVersion umbracoVersion;
-        private  IHttpClientFactory httpClientFactory;
-        private  UFormSettings uformSettings;
+        private GlobalSettings globalSettings;
+        private IUmbracoVersion umbracoVersion;
+        private IHttpClientFactory httpClientFactory;
+        private UFormSettings uformSettings;
 
         public UFormContentSavedNotificationHandler(
             IOptions<GlobalSettings> globalSettings,
@@ -41,13 +41,14 @@ namespace UFormKit
 
         async Task INotificationAsyncHandler<ContentSavedNotification>.HandleAsync(ContentSavedNotification notification, CancellationToken cancellationToken)
         {
-            if (!uformSettings.DisableTelemetry) {
+            if (!uformSettings.DisableTelemetry)
+            {
                 var assembly = Assembly.GetAssembly(MethodBase.GetCurrentMethod().DeclaringType);
                 var packageVersion = SemVersion.Parse(assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion).ToSemanticStringWithoutBuild();
                 var packageName = assembly.GetName().Name;
 
                 foreach (var node in notification.SavedEntities)
-            {
+                {
                     if (node.ContentType.Alias.Equals("uFormHexxu"))
                     {
                         var dirty = (IRememberBeingDirty)node;
@@ -59,7 +60,7 @@ namespace UFormKit
                                 var umbracoId = Guid.TryParse(globalSettings.Id, out var telemetrySiteIdentifier) == true
                                ? telemetrySiteIdentifier
                                : Guid.Empty;
-                                
+
                                 var data = new
                                 {
                                     umbraco_id = umbracoId,

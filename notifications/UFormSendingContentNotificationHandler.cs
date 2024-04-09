@@ -7,7 +7,7 @@ using Umbraco.Cms.Core.Models.ContentEditing;
 using Umbraco.Cms.Core.Notifications;
 using Umbraco.Extensions;
 
-namespace UFormKit
+namespace UFormKit.notifications
 {
     public class UFormSendingContentNotificationHandler : INotificationHandler<SendingContentNotification>
     {

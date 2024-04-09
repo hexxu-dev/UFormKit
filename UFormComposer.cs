@@ -3,6 +3,7 @@ using Umbraco.Cms.Core.Notifications;
 using UFormKit.Helpers;
 using Umbraco.Cms.Core.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
+using UFormKit.notifications;
 
 namespace UFormKit
 {
