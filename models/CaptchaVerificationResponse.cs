@@ -6,7 +6,7 @@ namespace UFormKit.Models
     public class CaptchaVerificationResponse
     {
         public bool Success { get; set; }
-
+        public double Score { get; set; }
 
         [JsonProperty("challenge_ts")]
         public DateTime ChallengeTimestamp { get; set; }

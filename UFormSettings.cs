@@ -10,5 +10,6 @@
     {
         public string SiteKey { get; set; }
         public string SecretKey { get; set; }
+        public double ScoreThreshold { get; set; }
     }
 }

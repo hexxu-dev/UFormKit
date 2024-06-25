@@ -35,7 +35,8 @@ namespace UFormKit.Helpers
                     var jsonString = await response.Content.ReadAsStringAsync();
                     var captchaVerfication = JsonConvert.DeserializeObject<CaptchaVerificationResponse>(jsonString);
 
-                    result = captchaVerfication.Success;
+                    var scoreThreshold = uformSettings.Recaptcha.ScoreThreshold > 0 ? uformSettings.Recaptcha.ScoreThreshold : 0.5;
+                    result = captchaVerfication.Success && captchaVerfication.Score >= scoreThreshold;
                 }
             }
             catch (Exception e)
