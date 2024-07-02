@@ -59,19 +59,6 @@ namespace UFormKit.Controller
         [HttpPost]
         public async Task<IActionResult> SendAsync(IFormCollection form)
         {
-            var recaptcha = form["g-recaptcha-response"];
-
-            if (!string.IsNullOrEmpty(recaptcha))
-            {
-                var isValid = await verificationService.IsCaptchaValid(recaptcha);
-                if (!isValid)
-                {
-                    ModelState.AddModelError("", "Problem while validating recaptcha. Try again!");
-                    return CurrentUmbracoPage();
-                }
-            }
-
-
             var scannedTags = new List<ScannedTag>();
             var formId = int.Parse(form["formId"]);
 
@@ -90,6 +77,18 @@ namespace UFormKit.Controller
             var demo = content.GetValue<bool>("demoMode");
             var storeData = !content.GetValue<bool>("doNotStoreData");
             var redirectUrl = content.GetValue<Umbraco.Cms.Core.Udi>("redirectToPage");
+            var useRecaptcha = content.GetValue<bool>("useRecaptcha");
+
+            if (useRecaptcha)
+            {
+                var recaptcha = form["g-recaptcha-response"];
+
+                if (string.IsNullOrEmpty(recaptcha) || !await verificationService.IsCaptchaValid(recaptcha))
+                {
+                    ModelState.AddModelError("", "Problem while validating recaptcha. Try again!");
+                    return CurrentUmbracoPage();
+                }
+            }
 
             var fileList = new List<string>();
             if (!string.IsNullOrEmpty(filesAttach))
@@ -268,19 +267,6 @@ namespace UFormKit.Controller
         [HttpPost]
         public async Task<JsonResult> SendJson(IFormCollection form)
         {
-
-            var recaptcha = form["g-recaptcha-response"];
-
-            if (!string.IsNullOrEmpty(recaptcha))
-            {
-                var isValid = await verificationService.IsCaptchaValid(recaptcha);
-                if (!isValid)
-                {
-                    return new JsonResult(new { Success = false, Message = "Problem while validating recaptcha. Try again!" }) { StatusCode = StatusCodes.Status400BadRequest };
-                }
-            }
-
-
             var scannedTags = new List<ScannedTag>();
             var formId = int.Parse(form["formId"]);
 
@@ -299,6 +285,18 @@ namespace UFormKit.Controller
             var demo = content.GetValue<bool>("demoMode");
             var storeData = !content.GetValue<bool>("doNotStoreData");
             var redirectUrl = content.GetValue<Umbraco.Cms.Core.Udi>("redirectToPage");
+            var useRecaptcha = content.GetValue<bool>("useRecaptcha");
+
+            if (useRecaptcha)
+            {
+                var recaptcha = form["g-recaptcha-response"];
+
+                if (string.IsNullOrEmpty(recaptcha) || !await verificationService.IsCaptchaValid(recaptcha))
+                {
+                    ModelState.AddModelError("", "Problem while validating recaptcha. Try again!");
+                    return new JsonResult(new { Success = false, Message = "Problem while validating recaptcha. Try again!" }) { StatusCode = StatusCodes.Status400BadRequest };
+                }
+            }
 
             var fileList = new List<string>();
             if (!string.IsNullOrEmpty(filesAttach))
