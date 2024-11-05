@@ -74,10 +74,18 @@ namespace UFormKit.Controller
             var body = content.GetValue<string>("messageBody");
             var isHtml = content.GetValue<bool>("useHTMLContentType");
             var excludeBlankMailTags = content.GetValue<bool>("excludeLinesWithBlankMailTagsFromOutput");
+            var excludelinks = content.GetValue<bool>("excludeLinks");
             var demo = content.GetValue<bool>("demoMode");
             var storeData = !content.GetValue<bool>("doNotStoreData");
             var redirectUrl = content.GetValue<Umbraco.Cms.Core.Udi>("redirectToPage");
             var useRecaptcha = content.GetValue<bool>("useRecaptcha");
+            var useHoneypot = content.GetValue<bool>("useHoneypot");
+
+            if (useHoneypot && !string.IsNullOrEmpty(form["extra-user-code"]))
+            {
+                ModelState.AddModelError("", "There was an issue submitting the form. Please try again.");
+                return CurrentUmbracoPage();
+            }
 
             if (useRecaptcha)
             {
@@ -160,6 +168,14 @@ namespace UFormKit.Controller
                     }
 
                     body = replaceSpecialMailTags(body);
+
+                    if (excludelinks)
+                    {
+                        string urlPattern = @"https?://[^\s]+";
+                        body = Regex.Replace(body, urlPattern, "");
+                    }
+
+
                     EmailMessage message;
                     List<EmailMessageAttachment> attachments = null;
 
@@ -223,6 +239,7 @@ namespace UFormKit.Controller
                         return CurrentUmbracoPage();
                     }
                     message = new EmailMessage(mailFrom, mailTo?.Split(","), cc?.Split(","), bcc?.Split(","), replyTo?.Split(","), subject, body, isHtml, attachments);
+
 
                     await emailSender.SendAsync(message, "");
 
@@ -472,7 +489,7 @@ namespace UFormKit.Controller
 
             var submission = ctService.Create(Guid.NewGuid().ToString(), parentGuid, "uFormSubmission");
             submission.SetValue("message", util.ReplaceLineBreaks(message));
-            submission.SetValue("dateAndTimeOfAMessage", DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"));
+            submission.SetValue("dateAndTimeOfAMessage", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
             ctService.SaveAndPublish(submission);
         }
 

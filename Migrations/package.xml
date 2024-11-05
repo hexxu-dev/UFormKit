@@ -51,6 +51,18 @@
           <Variations>Nothing</Variations>
         </GenericProperty>
         <GenericProperty>
+          <Name>Use Honeypot</Name>
+          <Alias>useHoneypot</Alias>
+          <Key>1b769a90-f899-4a1c-b460-7f37cba54a71</Key>
+          <Type>Umbraco.TrueFalse</Type>
+          <Definition>92897bc6-a5f3-4ffe-ae27-f2e7e33dda49</Definition>
+          <Tab Alias="template">Template</Tab>
+          <SortOrder>2</SortOrder>
+          <Mandatory>False</Mandatory>
+          <LabelOnTop>False</LabelOnTop>
+          <Variations>Nothing</Variations>
+        </GenericProperty>
+        <GenericProperty>
           <Name>To</Name>
           <Alias>to</Alias>
           <Key>57749512-bd24-4258-8e8c-804576540322</Key>
@@ -147,13 +159,25 @@
           <Variations>Nothing</Variations>
         </GenericProperty>
         <GenericProperty>
+          <Name>Exclude links in message</Name>
+          <Alias>excludeLinks</Alias>
+          <Key>7595ee41-b528-416b-84f8-ad2a97c77789</Key>
+          <Type>Umbraco.TrueFalse</Type>
+          <Definition>92897bc6-a5f3-4ffe-ae27-f2e7e33dda49</Definition>
+          <Tab Alias="mail">Mail</Tab>
+          <SortOrder>8</SortOrder>
+          <Mandatory>False</Mandatory>
+          <LabelOnTop>False</LabelOnTop>
+          <Variations>Nothing</Variations>
+        </GenericProperty>
+        <GenericProperty>
           <Name>Use HTML content type</Name>
           <Alias>useHTMLContentType</Alias>
           <Key>8dbaad58-20be-42db-bd3c-0848f5f80be6</Key>
           <Type>Umbraco.TrueFalse</Type>
           <Definition>92897bc6-a5f3-4ffe-ae27-f2e7e33dda49</Definition>
           <Tab Alias="mail">Mail</Tab>
-          <SortOrder>8</SortOrder>
+          <SortOrder>9</SortOrder>
           <Mandatory>False</Mandatory>
           <LabelOnTop>False</LabelOnTop>
           <Variations>Nothing</Variations>
@@ -165,7 +189,7 @@
           <Type>Umbraco.TextArea</Type>
           <Definition>c6bac0dd-4ab9-45b1-8e30-e4b619ee5da3</Definition>
           <Tab Alias="mail">Mail</Tab>
-          <SortOrder>9</SortOrder>
+          <SortOrder>10</SortOrder>
           <Mandatory>False</Mandatory>
           <LabelOnTop>False</LabelOnTop>
           <Variations>Nothing</Variations>
@@ -625,7 +649,7 @@
   <DictionaryItems />
   <Languages />
   <DataTypes>
-    <DataType Name="List View - uFormHexxu" Id="Umbraco.ListView" Definition="b310ea5d-3903-4722-a4a6-663755eaae2e" DatabaseType="Nvarchar" Configuration="{&quot;pageSize&quot;:10,&quot;orderDirection&quot;:&quot;desc&quot;,&quot;includeProperties&quot;:[{&quot;alias&quot;:&quot;dateAndTimeOfAMessage&quot;,&quot;header&quot;:&quot;Sent At&quot;,&quot;isSystem&quot;:0},{&quot;alias&quot;:&quot;message&quot;,&quot;header&quot;:&quot;Message&quot;,&quot;isSystem&quot;:0}],&quot;orderBy&quot;:&quot;dateAndTimeOfAMessage&quot;,&quot;layouts&quot;:[{&quot;name&quot;:&quot;List&quot;,&quot;path&quot;:&quot;views/propertyeditors/listview/layouts/list/list.html&quot;,&quot;icon&quot;:&quot;icon-list&quot;,&quot;isSystem&quot;:1,&quot;selected&quot;:true},{&quot;name&quot;:&quot;Grid&quot;,&quot;path&quot;:&quot;views/propertyeditors/listview/layouts/grid/grid.html&quot;,&quot;icon&quot;:&quot;icon-thumbnails-small&quot;,&quot;isSystem&quot;:1,&quot;selected&quot;:true}],&quot;bulkActionPermissions&quot;:{&quot;allowBulkPublish&quot;:false,&quot;allowBulkUnpublish&quot;:false,&quot;allowBulkCopy&quot;:true,&quot;allowBulkMove&quot;:true,&quot;allowBulkDelete&quot;:true},&quot;icon&quot;:&quot;icon-list&quot;,&quot;tabName&quot;:&quot;Submissions&quot;,&quot;showContentFirst&quot;:false,&quot;useInfiniteEditor&quot;:false}" />
+    <DataType Name="List View - uFormHexxu" Id="Umbraco.ListView" Definition="b310ea5d-3903-4722-a4a6-663755eaae2e" DatabaseType="Nvarchar" Configuration="{&quot;pageSize&quot;:10,&quot;orderDirection&quot;:&quot;desc&quot;,&quot;includeProperties&quot;:[{&quot;alias&quot;:&quot;dateAndTimeOfAMessage&quot;,&quot;header&quot;:&quot;Sent At&quot;,&quot;isSystem&quot;:0},{&quot;alias&quot;:&quot;message&quot;,&quot;header&quot;:&quot;Message&quot;,&quot;isSystem&quot;:0},{&quot;alias&quot;:&quot;createDate&quot;,&quot;isSystem&quot;:1}],&quot;orderBy&quot;:&quot;createDate&quot;,&quot;layouts&quot;:[{&quot;name&quot;:&quot;List&quot;,&quot;path&quot;:&quot;views/propertyeditors/listview/layouts/list/list.html&quot;,&quot;icon&quot;:&quot;icon-list&quot;,&quot;isSystem&quot;:1,&quot;selected&quot;:true},{&quot;name&quot;:&quot;Grid&quot;,&quot;path&quot;:&quot;views/propertyeditors/listview/layouts/grid/grid.html&quot;,&quot;icon&quot;:&quot;icon-thumbnails-small&quot;,&quot;isSystem&quot;:1,&quot;selected&quot;:true}],&quot;bulkActionPermissions&quot;:{&quot;allowBulkPublish&quot;:false,&quot;allowBulkUnpublish&quot;:false,&quot;allowBulkCopy&quot;:true,&quot;allowBulkMove&quot;:true,&quot;allowBulkDelete&quot;:true},&quot;icon&quot;:&quot;icon-list&quot;,&quot;tabName&quot;:&quot;Submissions&quot;,&quot;showContentFirst&quot;:false,&quot;useInfiniteEditor&quot;:false}" />
     <DataType Name="UForm  template" Id="UFormKitTemplate" Definition="ea2487ae-b03b-4519-a1e3-77145dacda8b" DatabaseType="Ntext" Configuration="{}" />
   </DataTypes>
   <MediaItems />

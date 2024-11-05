@@ -42,6 +42,7 @@ namespace UFormKit.Components
             var builder = new StringBuilder();
             var siteKey = "";
             var useRecaptcha = false;
+            var useHoneypot = false;
 
             try
             {
@@ -49,6 +50,7 @@ namespace UFormKit.Components
 
                 var template = content.GetValue<string>("form");
                 useRecaptcha = content.GetValue<bool>("useRecaptcha");
+                useHoneypot = content.GetValue<bool>("useHoneypot");
                 siteKey = useRecaptcha && uformSettings.Recaptcha != null ? uformSettings.Recaptcha.SiteKey : "";
                 requiredMessage = content.GetValue<string>("thereIsAFieldThatTheSenderMustFillIn");
 
@@ -73,6 +75,14 @@ namespace UFormKit.Components
                 {
                     builder.Append("<input type=\"hidden\" name=\"g-recaptcha-response\" id=\"g-recaptcha-response\"  />");
                 }
+
+                if (useHoneypot)
+                {
+                    builder.Append("<div style=\"position:absolute; left:-9999px;\" aria-hidden=\"true\">");
+                    builder.Append("<input type = \"text\" name = \"extra-user-code\" value = \"\" autocomplete=\"off\" tabindex=\"-1\" />");
+                    builder.Append("</div>");
+                }
+
                 builder.Append(template);
 
             }
