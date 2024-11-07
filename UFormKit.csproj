@@ -9,7 +9,7 @@
     <PackageTags>umbraco plugin package umbraco-marketplace</PackageTags>
     <RootNamespace>UFormKit</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>1.0.6</Version>
+    <Version>1.0.7</Version>
     <Authors>Hexxu Services ltd</Authors>
     <PackageProjectUrl>https://github.com/hexxu-dev/UFormKit</PackageProjectUrl>
     <Copyright>Copyright (c) Hexxu Services ltd 2023</Copyright>
@@ -17,7 +17,10 @@
     <PackageReadmeFile>readme.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/hexxu-dev/UFormKit</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageReleaseNotes>v.1.0.6
+    <PackageReleaseNotes>v.1.0.7
+- Fixed issue where submissions were not saved due to message length being too long
+
+v.1.0.6
 - Added option to exculde URLs from messages 
 - Added option to include a Honeypot field in forms
 

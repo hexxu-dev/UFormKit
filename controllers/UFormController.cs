@@ -303,6 +303,13 @@ namespace UFormKit.Controller
             var storeData = !content.GetValue<bool>("doNotStoreData");
             var redirectUrl = content.GetValue<Umbraco.Cms.Core.Udi>("redirectToPage");
             var useRecaptcha = content.GetValue<bool>("useRecaptcha");
+            var excludelinks = content.GetValue<bool>("excludeLinks");
+            var useHoneypot = content.GetValue<bool>("useHoneypot");
+
+            if (useHoneypot && !string.IsNullOrEmpty(form["extra-user-code"]))
+            {
+                return new JsonResult(new { Success = false, Message = "There was an issue submitting the form. Please try again." }) { StatusCode = StatusCodes.Status400BadRequest };
+            }
 
             if (useRecaptcha)
             {
@@ -385,6 +392,13 @@ namespace UFormKit.Controller
                     }
 
                     body = replaceSpecialMailTags(body);
+
+                    if (excludelinks)
+                    {
+                        string urlPattern = @"https?://[^\s]+";
+                        body = Regex.Replace(body, urlPattern, "");
+                    }
+
                     EmailMessage message;
                     List<EmailMessageAttachment> attachments = null;
                     var files = Request.Form.Files;
@@ -472,7 +486,6 @@ namespace UFormKit.Controller
             }
 
             return new JsonResult(new { Success = true, Message = content.GetValue<string>("sendersMessageSuccess") }) { StatusCode = StatusCodes.Status200OK };
-
         }
         private string replaceSpecialMailTags(string text)
         {

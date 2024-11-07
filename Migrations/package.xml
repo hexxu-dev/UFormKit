@@ -541,7 +541,7 @@
           <Alias>message</Alias>
           <Key>eb5608cf-a660-4308-acbb-ccdc8083bd1a</Key>
           <Type>Umbraco.Label</Type>
-          <Definition>f0bc4bfb-b499-40d6-ba86-058885a5178c</Definition>
+          <Definition>1349d715-1f89-49de-8ec3-d744b32b2e7b</Definition>
           <Tab Alias="content">Content</Tab>
           <SortOrder>0</SortOrder>
           <Mandatory>False</Mandatory>
@@ -651,6 +651,7 @@
   <DataTypes>
     <DataType Name="List View - uFormHexxu" Id="Umbraco.ListView" Definition="b310ea5d-3903-4722-a4a6-663755eaae2e" DatabaseType="Nvarchar" Configuration="{&quot;pageSize&quot;:10,&quot;orderDirection&quot;:&quot;desc&quot;,&quot;includeProperties&quot;:[{&quot;alias&quot;:&quot;dateAndTimeOfAMessage&quot;,&quot;header&quot;:&quot;Sent At&quot;,&quot;isSystem&quot;:0},{&quot;alias&quot;:&quot;message&quot;,&quot;header&quot;:&quot;Message&quot;,&quot;isSystem&quot;:0},{&quot;alias&quot;:&quot;createDate&quot;,&quot;isSystem&quot;:1}],&quot;orderBy&quot;:&quot;createDate&quot;,&quot;layouts&quot;:[{&quot;name&quot;:&quot;List&quot;,&quot;path&quot;:&quot;views/propertyeditors/listview/layouts/list/list.html&quot;,&quot;icon&quot;:&quot;icon-list&quot;,&quot;isSystem&quot;:1,&quot;selected&quot;:true},{&quot;name&quot;:&quot;Grid&quot;,&quot;path&quot;:&quot;views/propertyeditors/listview/layouts/grid/grid.html&quot;,&quot;icon&quot;:&quot;icon-thumbnails-small&quot;,&quot;isSystem&quot;:1,&quot;selected&quot;:true}],&quot;bulkActionPermissions&quot;:{&quot;allowBulkPublish&quot;:false,&quot;allowBulkUnpublish&quot;:false,&quot;allowBulkCopy&quot;:true,&quot;allowBulkMove&quot;:true,&quot;allowBulkDelete&quot;:true},&quot;icon&quot;:&quot;icon-list&quot;,&quot;tabName&quot;:&quot;Submissions&quot;,&quot;showContentFirst&quot;:false,&quot;useInfiniteEditor&quot;:false}" />
     <DataType Name="UForm  template" Id="UFormKitTemplate" Definition="ea2487ae-b03b-4519-a1e3-77145dacda8b" DatabaseType="Ntext" Configuration="{}" />
+    <DataType Name="UForm Submission - Message - Label" Id="Umbraco.Label" Definition="1349d715-1f89-49de-8ec3-d744b32b2e7b" DatabaseType="Ntext" Configuration="{&quot;umbracoDataValueType&quot;:&quot;TEXT&quot;}" />
   </DataTypes>
   <MediaItems />
 </umbPackage>
