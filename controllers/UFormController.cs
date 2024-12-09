@@ -80,6 +80,7 @@ namespace UFormKit.Controller
             var redirectUrl = content.GetValue<Umbraco.Cms.Core.Udi>("redirectToPage");
             var useRecaptcha = content.GetValue<bool>("useRecaptcha");
             var useHoneypot = content.GetValue<bool>("useHoneypot");
+            var blockedIPs = content.GetValue<string>("blockIPAddresses");
 
             if (useHoneypot && !string.IsNullOrEmpty(form["extra-user-code"]))
             {
@@ -97,6 +98,19 @@ namespace UFormKit.Controller
                     return CurrentUmbracoPage();
                 }
             }
+
+            if (!string.IsNullOrEmpty(blockedIPs))
+            {
+                var blockedList = blockedIPs.Split(",").Select(s => s.Trim()).ToList(); ;
+                var userIp = HttpContext.Connection.RemoteIpAddress?.ToString();
+
+                if (userIp != null && IsIPBlocked(userIp, blockedList))
+                {
+                    ModelState.AddModelError("", "Access denied");
+                    return CurrentUmbracoPage();
+                }
+            }
+
 
             var fileList = new List<string>();
             if (!string.IsNullOrEmpty(filesAttach))
@@ -305,6 +319,8 @@ namespace UFormKit.Controller
             var useRecaptcha = content.GetValue<bool>("useRecaptcha");
             var excludelinks = content.GetValue<bool>("excludeLinks");
             var useHoneypot = content.GetValue<bool>("useHoneypot");
+            var blockedIPs = content.GetValue<string>("blockIPAddresses");
+
 
             if (useHoneypot && !string.IsNullOrEmpty(form["extra-user-code"]))
             {
@@ -321,6 +337,19 @@ namespace UFormKit.Controller
                     return new JsonResult(new { Success = false, Message = "Problem while validating recaptcha. Try again!" }) { StatusCode = StatusCodes.Status400BadRequest };
                 }
             }
+
+
+            if (!string.IsNullOrEmpty(blockedIPs))
+            {
+                var blockedList = blockedIPs.Split(",").Select(s => s.Trim()).ToList(); ;
+                var userIp = HttpContext.Connection.RemoteIpAddress?.ToString();
+
+                if (userIp != null && IsIPBlocked(userIp, blockedList))
+                {
+                    return new JsonResult(new { Success = false, Message = "Access denied" }) { StatusCode = StatusCodes.Status400BadRequest };
+                }
+            }
+
 
             var fileList = new List<string>();
             if (!string.IsNullOrEmpty(filesAttach))
@@ -486,6 +515,7 @@ namespace UFormKit.Controller
             }
 
             return new JsonResult(new { Success = true, Message = content.GetValue<string>("sendersMessageSuccess") }) { StatusCode = StatusCodes.Status200OK };
+
         }
         private string replaceSpecialMailTags(string text)
         {
@@ -506,6 +536,28 @@ namespace UFormKit.Controller
             ctService.SaveAndPublish(submission);
         }
 
+        private bool IsIPBlocked(string currentIP, List<string> blockedIPs)
+        {
+            foreach (var blockedIP in blockedIPs)
+            {
+                if (blockedIP.Contains("*"))
+                {
+                    string regexPattern = "^" + blockedIP.Replace(".", "\\.").Replace("*", ".*") + "$";
+                    if (Regex.IsMatch(currentIP, regexPattern))
+                    {
+                        return true;
+                    }
+                }
+                else
+                {
+                    if (currentIP == blockedIP)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
 
 
     }
