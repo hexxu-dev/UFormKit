@@ -41,8 +41,10 @@ namespace UFormKit.Components
         {
             var builder = new StringBuilder();
             var siteKey = "";
+            var cftsSitekey = "";
             var useRecaptcha = false;
             var useHoneypot = false;
+            var useCloudflareTurnstile = false;
 
             try
             {
@@ -50,8 +52,10 @@ namespace UFormKit.Components
 
                 var template = content.GetValue<string>("form");
                 useRecaptcha = content.GetValue<bool>("useRecaptcha");
+                useCloudflareTurnstile = content.GetValue<bool>("useCloudflareTurnstile");
                 useHoneypot = content.GetValue<bool>("useHoneypot");
                 siteKey = useRecaptcha && uformSettings.Recaptcha != null ? uformSettings.Recaptcha.SiteKey : "";
+                cftsSitekey = useCloudflareTurnstile && uformSettings.CloudflareTurnstile != null ? uformSettings.CloudflareTurnstile.SiteKey : "";
                 requiredMessage = content.GetValue<string>("thereIsAFieldThatTheSenderMustFillIn");
 
                 Regex regex = new Regex(TagScanner.tagRegex());
@@ -85,13 +89,20 @@ namespace UFormKit.Components
 
                 builder.Append(template);
 
+
+                if (useCloudflareTurnstile)
+                {
+                    builder.Append(" <script src=\"https://challenges.cloudflare.com/turnstile/v0/api.js?\" defer></script>");
+                    builder.Append("<div class=\"cf-turnstile\" data-sitekey=\"" + cftsSitekey + "\" data-callback=\"onTurnstileCallback\"></div>");
+                }
+
             }
             catch (Exception ex)
             {
                 logger.LogError(ex, $"Something failed while creating custom form: {ex.Message}.");
                 ModelState.AddModelError("", "Problem displaying form. Try again!");
             }
-            return View(new UFormModel { Template = new HtmlString(builder.ToString()), SiteKey = siteKey, UseRecaptcha = useRecaptcha });
+            return View(new UFormModel { Template = new HtmlString(builder.ToString()), SiteKey = siteKey, UseRecaptcha = useRecaptcha, CftsKey = cftsSitekey, UseCfts = useCloudflareTurnstile });
 
         }
 
@@ -480,7 +491,6 @@ namespace UFormKit.Components
                 tag.Labels = options;
             }
         }
-
 
     }
 }

@@ -7,6 +7,8 @@ namespace UFormKit.Models
         public HtmlString Template { get; set; }
         public bool UseRecaptcha { get; set; }
         public string SiteKey { get; set; }
+        public string CftsKey { get; set; }
+        public bool UseCfts { get; set; }
     }
 
 }

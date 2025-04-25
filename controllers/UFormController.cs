@@ -79,6 +79,7 @@ namespace UFormKit.Controller
             var storeData = !content.GetValue<bool>("doNotStoreData");
             var redirectUrl = content.GetValue<Umbraco.Cms.Core.Udi>("redirectToPage");
             var useRecaptcha = content.GetValue<bool>("useRecaptcha");
+            var useCloudflareTurnstile = content.GetValue<bool>("useCloudflareTurnstile");
             var useHoneypot = content.GetValue<bool>("useHoneypot");
             var blockedIPs = content.GetValue<string>("blockIPAddresses");
 
@@ -95,6 +96,17 @@ namespace UFormKit.Controller
                 if (string.IsNullOrEmpty(recaptcha) || !await verificationService.IsCaptchaValid(recaptcha))
                 {
                     ModelState.AddModelError("", "Problem while validating recaptcha. Try again!");
+                    return CurrentUmbracoPage();
+                }
+            }
+
+            if (useCloudflareTurnstile)
+            {
+                var cfValue = form["cf-turnstile-response"];
+
+                if (string.IsNullOrEmpty(cfValue) || !await verificationService.IsCftsValid(cfValue))
+                {
+                    ModelState.AddModelError("", "Verification failed. Please try again");
                     return CurrentUmbracoPage();
                 }
             }
@@ -558,7 +570,6 @@ namespace UFormKit.Controller
             }
             return false;
         }
-
 
     }
 }

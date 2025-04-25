@@ -63,6 +63,18 @@
           <Variations>Nothing</Variations>
         </GenericProperty>
         <GenericProperty>
+          <Name>Use Cloudflare Turnstile</Name>
+          <Alias>useCloudflareTurnstile</Alias>
+          <Key>7cebec4a-196d-4dd4-8da7-07ff0c90cb13</Key>
+          <Type>Umbraco.TrueFalse</Type>
+          <Definition>92897bc6-a5f3-4ffe-ae27-f2e7e33dda49</Definition>
+          <Tab Alias="template">Template</Tab>
+          <SortOrder>3</SortOrder>
+          <Mandatory>False</Mandatory>
+          <LabelOnTop>False</LabelOnTop>
+          <Variations>Nothing</Variations>
+        </GenericProperty>
+        <GenericProperty>
           <Name>To</Name>
           <Alias>to</Alias>
           <Key>57749512-bd24-4258-8e8c-804576540322</Key>

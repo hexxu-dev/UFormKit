@@ -9,7 +9,7 @@
     <PackageTags>umbraco plugin package umbraco-marketplace</PackageTags>
     <RootNamespace>UFormKit</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>1.0.8</Version>
+    <Version>1.0.9</Version>
     <Authors>Hexxu Services ltd</Authors>
     <PackageProjectUrl>https://github.com/hexxu-dev/UFormKit</PackageProjectUrl>
     <Copyright>Copyright (c) Hexxu Services ltd 2023</Copyright>
@@ -17,32 +17,36 @@
     <PackageReadmeFile>readme.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/hexxu-dev/UFormKit</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageReleaseNotes>v.1.0.8
-- Block by IP address
+    <PackageReleaseNotes>
+      v.1.0.9
+      - Added support for Cloudflare Turnstile
 
-v.1.0.7
-- Fixed issue where submissions were not saved due to message length being too long
+      v.1.0.8
+      - Block by IP address
 
-v.1.0.6
-- Added option to exculde URLs from messages 
-- Added option to include a Honeypot field in forms
+      v.1.0.7
+      - Fixed issue where submissions were not saved due to message length being too long
 
-v.1.0.5
-- improved reCAPTCHA validation
+      v.1.0.6
+      - Added option to exculde URLs from messages
+      - Added option to include a Honeypot field in forms
 
- v.1.0.4
-- integrated a scoring system into reCAPTCHA validation
+      v.1.0.5
+      - improved reCAPTCHA validation
 
-v.1.0.3
-- UFormEmailSentNotification added
-- New UFormController method that returns JSON result
+      v.1.0.4
+      - integrated a scoring system into reCAPTCHA validation
 
-v.1.0.2
-- Storing submitted messages in database
-- Collecting telemetry data
+      v.1.0.3
+      - UFormEmailSentNotification added
+      - New UFormController method that returns JSON result
 
-v.1.0.1
-- Max &amp; min length options and character count
+      v.1.0.2
+      - Storing submitted messages in database
+      - Collecting telemetry data
+
+      v.1.0.1
+      - Max &amp; min length options and character count
 - Demo mode  
 - Redirecting to another URL after submissions
 - Special mail-tags

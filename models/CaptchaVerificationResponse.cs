@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 
 namespace UFormKit.Models
 {
@@ -17,5 +18,11 @@ namespace UFormKit.Models
 
         [JsonProperty("error-codes")]
         public string[] Errorcodes { get; set; }
+    }
+
+    public class CftsVerificationResponse
+    {
+        public bool Success { get; set; }
+        public List<string> ErrorCodes { get; set; }
     }
 }
