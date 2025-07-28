@@ -1,4 +1,5 @@
-﻿using Umbraco.Cms.Core.PropertyEditors;
+﻿using Umbraco.Cms.Core.Models;
+using Umbraco.Cms.Core.PropertyEditors;
 
 namespace UFormKit
 {
@@ -19,5 +20,12 @@ namespace UFormKit
 			: base(dataValueEditorFactory)
 		{
 		}
-	}
+
+        protected override IDataValueEditor CreateValueEditor()
+        {
+            var editor = base.CreateValueEditor();
+            editor.ValueType = ValueTypes.Text;
+            return editor;
+        }
+    }
 }

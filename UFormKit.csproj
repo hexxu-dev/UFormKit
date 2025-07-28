@@ -9,7 +9,7 @@
     <PackageTags>umbraco plugin package umbraco-marketplace</PackageTags>
     <RootNamespace>UFormKit</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>1.0.9</Version>
+    <Version>1.0.10</Version>
     <Authors>Hexxu Services ltd</Authors>
     <PackageProjectUrl>https://github.com/hexxu-dev/UFormKit</PackageProjectUrl>
     <Copyright>Copyright (c) Hexxu Services ltd 2023</Copyright>
@@ -17,7 +17,9 @@
     <PackageReadmeFile>readme.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/hexxu-dev/UFormKit</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageReleaseNotes>
+    <PackageReleaseNotes>      v.1.0.10
+      - Explicitly set ValueType to `Text` for the UFormKitTemplate editor.
+
       v.1.0.9
       - Added support for Cloudflare Turnstile
 
