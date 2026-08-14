@@ -2,9 +2,16 @@
 UForm Kit is a package for Umbraco which enables you to create and manage multiple contact forms on your site,  and customize the form and the mail contents flexibly with simple markup.
 
 UForm Kit is heavily inspired and influenced by the ContactForm7 plugin for WordPress - https://wordpress.org/plugins/contact-form-7/ and we feel that the Umbraco community would benefit from similar solution.
+# Version compatibility
+| UForm Kit | Umbraco | .NET |
+| --- | --- | --- |
+| 2.x | 17 | .NET 10 |
+| 1.x | 10, 11, 12, 13 | .NET 6, 7, 8 |
+
+Both lines share the same package ID, so `dotnet add package UFormKit` resolves the right one from your project's target framework. Pin with `-v` only if you need a specific version.
 # System requirements
-* Umbraco 10.0+, 
-* Microsoft SQL Server database
+* Umbraco 17 (UForm Kit 2.x) or Umbraco 10-13 (UForm Kit 1.x)
+* SQL Server or SQLite
 # Installation
 ## Command line
 UForm Kit can be installed using the NuGet Package Manager, by running the following command at the command line prompt in your web project folder.
@@ -33,9 +40,9 @@ An example of the data captured is as follows.
 ```
 {
     "umbraco_id": "0403E47E-EFE7-4CF2-8E97-148681DAFC10",
-    "umbraco_version": "13.0.0",
+    "umbraco_version": "17.0.0",
     "package_id": "UForm Kit",
-    "package_version": "1.0.2"
+    "package_version": "2.0.0"
 }
 ```
 ## How to disable telemetry?

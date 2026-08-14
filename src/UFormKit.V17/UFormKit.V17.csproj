@@ -1,0 +1,99 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Umbraco 14-17 leg. Ships NuGet UFormKit 2.x.
+    Same PackageId as V13 so the Marketplace listing is continuous; consumers get the
+    right major automatically (NuGet rejects install on the wrong Umbraco line).
+
+    Re-implemented from V13:
+      - DataEditor: drop view: parameter, link to UI alias via umbraco-package.json
+      - SurfaceController: re-check ctor signature for U17
+      - Notifications: ICoreScopeProvider, IContentPublishingService.PublishAsync
+      - Migrations\package.xml: drop <Macros> and <MacroPartialViews>, re-export on U17
+      - App_Plugins\UFormKit\: umbraco-package.json + Lit/TS backoffice (replaces AngularJS)
+  -->
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ContentTargetFolders>.</ContentTargetFolders>
+    <RootNamespace>UFormKit</RootNamespace>
+    <!-- Every published 1.x ships UFormKit.dll; keep the assembly name off the leg name
+         so explicit assembly references in consumers (_ViewImports, @addTagHelper) survive. -->
+    <AssemblyName>UFormKit</AssemblyName>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+
+    <PackageId>UFormKit</PackageId>
+    <Title>UFormKit</Title>
+    <Description>UForm Kit is a package for Umbraco which enables you to create and manage multiple contact forms on your site.</Description>
+    <Authors>Hexxu Services ltd</Authors>
+    <Copyright>Copyright (c) Hexxu Services ltd 2026</Copyright>
+    <Version>2.0.0</Version>
+    <PackageReleaseNotes>
+Support for Umbraco 17 (.NET 10). Umbraco 10-13 sites stay on the 1.x line.
+
+Breaking: Umbraco 14 removed macros, so the insertUForm macro is gone - place forms with @await Component.InvokeAsync("UForm", new { id }) instead.
+
+The id argument now also accepts the form node's GUID key, as a Guid or as a string; integer ids keep working. The Umbraco 14+ backoffice shows the key rather than the integer id, so the key is what you can copy out of the Info tab.
+    </PackageReleaseNotes>
+    <PackageTags>umbraco plugin package umbraco-marketplace</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
+    <PackageProjectUrl>https://github.com/hexxu-dev/UFormKit</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/hexxu-dev/UFormKit</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+
+    <!-- Fold UFormKit.Core.dll into lib/ instead of depending on a UFormKit.Core package,
+         so 2.x stays a single package like every published 1.x. -->
+    <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);IncludeCoreAssemblyInPackage</TargetsForTfmSpecificBuildOutput>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Umbraco.Cms.Web.Website" Version="[17.0,18)" />
+    <!-- Add Umbraco.Cms.Api.Management only if you expose backoffice HTTP endpoints. -->
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Mirrors UFormKit.Core's own references. Required explicitly: PrivateAssets="all" below
+         suppresses Core's transitive dependencies along with Core itself, but the folded-in
+         UFormKit.Core.dll still needs them at runtime. -->
+    <!-- Microsoft.Extensions.Options / .Logging.Abstractions are deliberately NOT listed:
+         they ship in the Microsoft.AspNetCore.App shared framework (NU1510). -->
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\UFormKit.Core\UFormKit.Core.csproj" PrivateAssets="all" />
+  </ItemGroup>
+
+  <Target Name="IncludeCoreAssemblyInPackage" DependsOnTargets="ResolveReferences">
+    <ItemGroup>
+      <BuildOutputInPackage Include="@(ReferenceCopyLocalPaths)"
+                            Condition="'%(Filename)' == 'UFormKit.Core' And '%(Extension)' == '.dll'" />
+    </ItemGroup>
+  </Target>
+
+  <ItemGroup>
+    <Content Include="App_Plugins\UFormKit\**"
+             Exclude="App_Plugins\UFormKit\node_modules\**;App_Plugins\UFormKit\src\**;App_Plugins\UFormKit\package.json;App_Plugins\UFormKit\package-lock.json;App_Plugins\UFormKit\tsconfig.json;App_Plugins\UFormKit\vite.config.ts"
+             ExcludeFromSingleFile="true"
+             CopyToPublishDirectory="Always" />
+    <!-- PackageReference does not copy nupkg-root content into the consumer; this targets file does. -->
+    <None Include="buildTransitive\**" Pack="true" PackagePath="buildTransitive" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\img\icon.png"  Pack="true" PackagePath="\" />
+    <None Include="..\..\docs\readme.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Migrations\package.xml" />
+    <EmbeddedResource Include="Migrations\package.xml" />
+  </ItemGroup>
+
+</Project>

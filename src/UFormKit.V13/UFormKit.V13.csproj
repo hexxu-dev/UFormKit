@@ -1,0 +1,92 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Umbraco 10/11/13 leg. Ships NuGet UFormKit 1.x.
+    During migration, move the following from the repo root into this folder:
+      - UFormComposer.cs
+      - UFormTemplateEditor.cs
+      - Components\UFormKitComponent.cs
+      - controllers\UFormController.cs
+      - notifications\*
+      - Migrations\PackageMigrationPlan.cs
+      - Migrations\package.xml
+      - App_Plugins\UFormKit\**   (the AngularJS bundle, package.manifest)
+      - buildTransitive\**        (if present)
+
+    Pure-logic files (TagScanner, HtmlBuilder, models, UFormSettings, CaptchaVerificationService)
+    move into ..\UFormKit.Core instead.
+  -->
+
+  <PropertyGroup>
+    <TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
+    <ContentTargetFolders>.</ContentTargetFolders>
+    <RootNamespace>UFormKit</RootNamespace>
+    <!-- 1.0.10 and earlier ship UFormKit.dll; 1.0.11 must not break that. -->
+    <AssemblyName>UFormKit</AssemblyName>
+
+    <PackageId>UFormKit</PackageId>
+    <Title>UFormKit</Title>
+    <Description>UForm Kit is a package for Umbraco which enables you to create and manage multiple contact forms on your site.</Description>
+    <Authors>Hexxu Services ltd</Authors>
+    <Copyright>Copyright (c) Hexxu Services ltd 2026</Copyright>
+    <Version>1.0.11</Version>
+    <PackageTags>umbraco plugin package umbraco-marketplace</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
+    <PackageProjectUrl>https://github.com/hexxu-dev/UFormKit</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/hexxu-dev/UFormKit</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+
+    <!-- Fold UFormKit.Core.dll into lib/ instead of depending on a UFormKit.Core package,
+         so 1.0.11 stays a single package like every published 1.x. -->
+    <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);IncludeCoreAssemblyInPackage</TargetsForTfmSpecificBuildOutput>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Umbraco.Cms.Web.Website"    Version="[10.0,11)" Condition="'$(TargetFramework)' == 'net6.0'" />
+    <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="[10.0,11)" Condition="'$(TargetFramework)' == 'net6.0'" />
+    <PackageReference Include="Umbraco.Cms.Web.Website"    Version="[11.0,13)" Condition="'$(TargetFramework)' == 'net7.0'" />
+    <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="[11.0,13)" Condition="'$(TargetFramework)' == 'net7.0'" />
+    <PackageReference Include="Umbraco.Cms.Web.Website"    Version="[13.0,14)" Condition="'$(TargetFramework)' == 'net8.0'" />
+    <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="[13.0,14)" Condition="'$(TargetFramework)' == 'net8.0'" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Mirrors UFormKit.Core's own references. Required explicitly: PrivateAssets="all" below
+         suppresses Core's transitive dependencies along with Core itself, but the folded-in
+         UFormKit.Core.dll still needs them at runtime. -->
+    <!-- Microsoft.Extensions.Options / .Logging.Abstractions are deliberately NOT listed:
+         they ship in the Microsoft.AspNetCore.App shared framework (NU1510). -->
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\UFormKit.Core\UFormKit.Core.csproj" PrivateAssets="all" />
+  </ItemGroup>
+
+  <Target Name="IncludeCoreAssemblyInPackage" DependsOnTargets="ResolveReferences">
+    <ItemGroup>
+      <BuildOutputInPackage Include="@(ReferenceCopyLocalPaths)"
+                            Condition="'%(Filename)' == 'UFormKit.Core' And '%(Extension)' == '.dll'" />
+    </ItemGroup>
+  </Target>
+
+  <ItemGroup>
+    <Content Include="App_Plugins\UFormKit\**" ExcludeFromSingleFile="true" CopyToPublishDirectory="Always" />
+    <None Include="buildTransitive\**" Pack="true" PackagePath="buildTransitive" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\img\icon.png"  Pack="true" PackagePath="\" />
+    <None Include="..\..\docs\readme.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Migrations\package.xml" />
+    <EmbeddedResource Include="Migrations\package.xml" />
+  </ItemGroup>
+
+</Project>

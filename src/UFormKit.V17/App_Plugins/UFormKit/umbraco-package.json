@@ -1,0 +1,45 @@
+{
+  "$schema": "../umbraco-package-schema.json",
+  "name": "UFormKit",
+  "version": "2.0.0",
+  "extensions": [
+    {
+      "type": "propertyEditorUi",
+      "alias": "UFormKitTemplate",
+      "name": "UFormKit Template",
+      "element": "/App_Plugins/UFormKit/dist/uformkit-template.element.js",
+      "elementName": "uformkit-template-editor",
+      "meta": {
+        "label": "UFormKit form template",
+        "icon": "icon-list",
+        "group": "common",
+        "propertyEditorSchemaAlias": "UFormKitTemplate"
+      }
+    },
+    {
+      "type": "propertyEditorUi",
+      "alias": "UFormKitSubmissionMessage",
+      "name": "UFormKit Submission Message",
+      "element": "/App_Plugins/UFormKit/dist/uformkit-submission.element.js",
+      "elementName": "uformkit-submission-message",
+      "meta": {
+        "label": "UFormKit submission message",
+        "icon": "icon-message",
+        "group": "common",
+        "propertyEditorSchemaAlias": "Umbraco.Label"
+      }
+    },
+    {
+      "type": "workspaceContext",
+      "alias": "UFormKit.WorkspaceContext.Defaults",
+      "name": "UFormKit Default Values",
+      "api": "/App_Plugins/UFormKit/dist/uformkit-defaults.context.js",
+      "conditions": [
+        {
+          "alias": "Umb.Condition.WorkspaceAlias",
+          "match": "Umb.Workspace.Document"
+        }
+      ]
+    }
+  ]
+}

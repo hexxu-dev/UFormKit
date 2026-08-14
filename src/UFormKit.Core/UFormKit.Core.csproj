@@ -1,0 +1,47 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Shared domain logic consumed by both UFormKit.V13 and UFormKit.V17.
+    NO Umbraco references in this project. Multi-targets so each consumer leg picks the right TFM.
+
+    Move into this project during migration:
+      - tools\TagScanner.cs
+      - tools\HtmlBuilder.cs
+      - models\* (ScannedTag, TagType, AttributeResult, UFormModel, CaptchaVerificationResponse)
+      - UFormSettings.cs
+      - tools\CaptchaVerificationService.cs
+
+    Anything that references Umbraco.* must stay in the V13 / V17 legs.
+
+    NOT a NuGet package. Its assembly is folded into the UFormKit package produced by each
+    leg (see TargetsForTfmSpecificBuildOutput there), so consumers keep getting the single
+    UFormKit package they got in 1.x. Keep the deps below mirrored in both legs' csproj —
+    PrivateAssets="all" on their ProjectReference stops these from flowing into the nuspec.
+  -->
+
+  <PropertyGroup>
+    <TargetFrameworks>net6.0;net7.0;net8.0;net10.0</TargetFrameworks>
+    <RootNamespace>UFormKit</RootNamespace>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+
+    <IsPackable>false</IsPackable>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+
+    <!-- Assembly identity only; there is no UFormKit.Core package. -->
+    <Version>1.0.0</Version>
+    <Authors>Hexxu Services ltd</Authors>
+    <Copyright>Copyright (c) Hexxu Services ltd 2026</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.0" />
+  </ItemGroup>
+
+</Project>

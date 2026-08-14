@@ -1,0 +1,15 @@
+{
+  "name": "@uformkit/backoffice",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite build --watch"
+  },
+  "devDependencies": {
+    "@umbraco-cms/backoffice": "^17.0.0",
+    "typescript": "^5.5.0",
+    "vite": "^5.4.0"
+  }
+}

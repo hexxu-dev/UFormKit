@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using System.Text;
 using UFormKit.Models;
-using static Umbraco.Cms.Core.Diagnostics.MiniDump;
 
 namespace UFormKit.Helpers
 {
